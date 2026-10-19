@@ -1,20 +1,24 @@
-/* ─ 1. RESET Y VARIABLES ──────────────────────────────────────────────── */
-*, *::before, *::after { box-sizing: border-box; }
-
-:root {
-  --color-principal: #1a4a7a;
-  --color-acento:    #b8471f;
-  --color-texto:     #1f2933;
-  --color-suave:     #5c6b73;
-  --color-fondo:     #f7f8f7;
-  --color-superficie: #ffffff;
-  --borde:           #d8dedb;
-  --espacio:         1rem;
-  --espacio-lg:      2rem;
-  --radio:           4px;
+/* ─ 1. EL RESET QUE SE PONE SIEMPRE ───────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
 }
 
-/* ── 2. BASE Y CENTRADO GLOBAL ─────────────────────────────────────────── */
+/* ── 2. CUSTOM PROPERTIES: se define una vez, se usa en todos lados ────── */
+:root {
+  --color-principal: hsl(210, 18%, 19%);
+  --color-acento:    #12141c;
+  --color-texto:     #1f2933;
+  --color-suave:     #5c6b73;
+  --color-fondo:     #d2d6df;
+  --color-superficie: #ffffff;
+  --borde:           #1b1d1c;
+
+  --espacio:    1rem;
+  --espacio-lg: 2rem;
+  --radio:      4px;
+}
+
+/* ── 3. TIPOGRAFÍA Y CENTRADO GLOBAL ──────────────────────────────────── */
 body {
   margin: 0;
   max-width: 78rem;
@@ -27,33 +31,18 @@ body {
   background: var(--color-fondo);
 }
 
-h1, h2, h3 { line-height: 1.2; color: var(--color-principal); }
+h1, h2, h3 {
+  line-height: 1.2;
+  color: var(--color-principal);
+}
+
 h1 { font-size: 2rem; margin-bottom: 0.25rem; }
 h2 { font-size: 1.5rem; margin-top: var(--espacio-lg); }
 h3 { font-size: 1.15rem; }
+
 p { max-width: 65ch; }
 
-/* ─ 3. MENÚ TIPO CUADROS Y CARRITO ────────────────────────────────────── */
-header {
-  padding: var(--espacio-lg) var(--espacio);
-  border-bottom: 3px solid var(--color-principal);
-  margin-bottom: var(--espacio-lg);
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: center;
-  gap: var(--espacio);
-}
-
-nav ul { 
-  display: flex; 
-  flex-wrap: wrap; 
-  gap: 0.5rem; 
-  list-style: none; 
-  padding: 0; 
-  margin: 0; 
-}
-
+/* ── 4. ENLACES Y ESTADOS ──────────────────────────────────────────────── */
 nav a {
   display: inline-block;
   padding: 0.5rem 1rem;
@@ -63,19 +52,42 @@ nav a {
   text-decoration: none;
   transition: all 0.2s ease;
 }
-
 nav a:hover {
   background-color: var(--color-principal);
   color: #fff;
   transform: translateY(-2px);
 }
-
 .carrito-indicador a {
   background-color: var(--color-fondo);
   border: 1px solid var(--borde);
 }
 
-/* ─ 4. TARJETAS DEL CATÁLOGO CON PRECIOS ─────────────────────────────── */
+/* ── 5. EL MODELO DE CAJA EN ACCIÓN ────────────────────────────────────── */
+header {
+  padding: var(--espacio-lg) var(--espacio);
+  border-bottom: 3px solid var(--color-principal);
+  margin-bottom: var(--espacio-lg);
+}
+
+/* ── FLEXBOX: una dimensión ────────────────────────────────────────────── */
+header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--espacio);
+}
+
+nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+/* ── GRID: dos dimensiones (CATÁLOGO) ──────────────────────────────────── */
 #Catalogo {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
@@ -85,6 +97,7 @@ nav a:hover {
 
 #Catalogo h2 { grid-column: 1 / -1; }
 
+/* ── SE COMBINAN (TARJETAS) ────────────────────────────────────────────── */
 #Catalogo article {
   display: flex;
   flex-direction: column;
@@ -104,9 +117,8 @@ nav a:hover {
 
 .info-producto {
   padding: var(--espacio);
-  flex-grow: 1; /* Ocupa el espacio disponible para empujar el botón abajo */
+  flex-grow: 1;
 }
-
 .info-producto h3 { margin-top: 0; margin-bottom: 0.5rem; }
 .descripcion { color: var(--color-suave); font-size: 0.95rem; margin-bottom: 1rem; }
 
@@ -117,7 +129,6 @@ nav a:hover {
   margin: 0 0 var(--espacio);
 }
 
-/* Botón Agregar con estados */
 .btn-agregar {
   width: 100%;
   padding: 0.75rem;
@@ -128,27 +139,42 @@ nav a:hover {
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s;
-  margin-top: auto; /* Siempre pegado al fondo */
+  margin-top: auto;
 }
-
 .btn-agregar:hover {
   background: var(--color-principal);
   color: #fff;
 }
-
-/* Estado cuando se agrega exitosamente */
 .btn-agregar.agregado {
   background: #2e7d32;
   border-color: #2e7d32;
   color: #fff;
 }
 
-/* ── 5. FORMULARIO Y TABLAS ────────────────────────────────────────────── */
-table { border-collapse: collapse; width: 100%; max-width: 40rem; background: var(--color-superficie); margin-top: var(--espacio); }
-caption { text-align: left; color: var(--color-suave); padding-bottom: 0.5rem; }
-th, td { text-align: left; padding: 0.6rem 0.8rem; border-bottom: 1px solid var(--borde); }
-th { background: var(--color-principal); color: #fff; }
+/* ── 6. TABLA LEGIBLE ──────────────────────────────────────────────────── */
+table {
+  border-collapse: collapse;
+  width: 100%;
+  max-width: 40rem;
+  background: var(--color-superficie);
+  margin-top: var(--espacio);
+}
+caption {
+  text-align: left;
+  color: var(--color-suave);
+  padding-bottom: 0.5rem;
+}
+th, td {
+  text-align: left;
+  padding: 0.6rem 0.8rem;
+  border-bottom: 1px solid var(--borde);
+}
+th {
+  background: var(--color-principal);
+  color: #fff;
+}
 
+/* ── 7. FORMULARIO ─────────────────────────────────────────────────────── */
 fieldset {
   border: 1px solid var(--borde);
   border-radius: var(--radio);
@@ -156,11 +182,23 @@ fieldset {
   margin-bottom: var(--espacio);
   max-width: 32rem;
 }
-legend { padding: 0 0.4rem; font-weight: 600; color: var(--color-principal); }
-label { display: block; margin-bottom: 0.25rem; font-weight: 500; }
+legend {
+  padding: 0 0.4rem;
+  font-weight: 600;
+  color: var(--color-principal);
+}
+label {
+  display: block;
+  margin-bottom: 0.25rem;
+  font-weight: 500;
+}
 input, select, textarea {
-  font-size: 1rem; font-family: inherit; padding: 0.5rem;
-  width: 100%; border: 1px solid var(--borde); border-radius: var(--radio);
+  font-size: 1rem;
+  font-family: inherit;
+  padding: 0.5rem;
+  width: 100%;
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
 }
 input[type="checkbox"] { width: auto; }
 
@@ -176,7 +214,7 @@ input[type="checkbox"] { width: auto; }
   cursor: pointer;
   margin-top: var(--espacio);
 }
-.btn-pedido:hover { background: #963a19; }
+.btn-pedido:hover { background: #09c613; }
 
 img { max-width: 100%; height: auto; }
 
@@ -187,14 +225,22 @@ footer {
   color: var(--color-suave);
 }
 
-/* ── 6. RESPONSIVE (SIDEBAR AL FINAL) ──────────────────────────────────── */
+/* ── La página completa, con áreas nombradas (RESPONSIVE) ─────────────── */
 @media (min-width: 60rem) {
-  body { display: block; padding: 0 var(--espacio-lg); }
-  aside { 
-    margin-top: var(--espacio-lg); 
-    display: grid; 
-    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); 
-    gap: var(--espacio); 
+  body { 
+    display: block; 
+    padding: 0 var(--espacio-lg); 
+  }
+  aside {
+    margin-top: var(--espacio-lg);
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+    gap: var(--espacio);
   }
   aside article { margin-bottom: 0; }
+}
+
+/* ─ Escalón de tablet ─────────────────────────────────────────────────── */
+@media (min-width: 40rem) {
+  h1     { font-size: 2.5rem; }
 }

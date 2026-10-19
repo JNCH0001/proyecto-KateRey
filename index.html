@@ -1,155 +1,119 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Distribuidor KateRey</title>
-  <link rel="stylesheet" href="estilos.css">
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Distribuidor de materiales de construcción garantizados. Cemento, acero y más.">
+    <title>Distribuidor KateRey</title>
+    <link rel="stylesheet" href="estilos.css">
+  </head>
+  <body>
 
-  <!-- HEADER CON INDICADOR DE CARRITO -->
-  <header>
-    <div class="branding">
-      <h1>Distribuidor KateRey</h1>
-      <p>Material de construcción garantizado</p>
-    </div>
-    <nav>
-      <ul>
-        <li><a href="#Catalogo">Catálogo</a></li>
-        <li><a href="#Pedido">Finalizar Pedido</a></li>
-        <li><a href="#Ubicacion">Ubicación</a></li>
-        <!-- Contador visual del carrito -->
-        <li class="carrito-indicador">
-          <a href="#Pedido">🛒 Carrito (<span id="total-carrito">0</span>)</a>
-        </li>
-      </ul>
-    </nav>
-  </header>
+    <!-- ── HEADER: identidad y navegación principal ────────────────────── -->
+    <header>
+      <div class="branding">
+        <h1>Distribuidor KateRey</h1>
+        <p>Material de construcción garantizado</p>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="#Catalogo">Catálogo</a></li>
+          <li><a href="#Horarios">Horarios</a></li>
+          <li><a href="#Ubicacion">Ubicación</a></li>
+          <!-- Se eliminó "Pedido", el carrito es ahora el acceso directo -->
+          <li class="carrito-indicador">
+            <a href="#resumen-carrito">Carrito (<span id="total-carrito">0</span>)</a>
+          </li>
+        </ul>
+      </nav>
+    </header>
 
-  <main>
-    <!-- CATÁLOGO CON PRECIOS INTEGRADOS Y BOTONES INTERACTIVOS -->
-    <section id="Catalogo">
-      <h2>Nuestro Catálogo</h2>
-      
-      <article data-producto="Barra corrugada" data-precio="45">
-        <img src="corrugada.jpg" alt="Barra corrugada de acero">
-        <div class="info-producto">
-          <h3>Barra corrugada</h3>
-          <p class="descripcion">Medidas de 6, 9 y 12 metros.</p>
-          <p class="precio">Bs 45.00 / unidad</p>
-        </div>
-        <button type="button" class="btn-agregar">+ Agregar al pedido</button>
-      </article>
+    <!-- ── MAIN: contenido propio de esta página ───────────────────────── -->
+    <main>
 
-      <article data-producto="Barra angular" data-precio="38">
-        <img src="angular.jpg" alt="Barra angular de acero">
-        <div class="info-producto">
-          <h3>Barra angular</h3>
-          <p class="descripcion">Medidas de 6, 9 y 12 metros.</p>
-          <p class="precio">Bs 38.00 / unidad</p>
-        </div>
-        <button type="button" class="btn-agregar">+ Agregar al pedido</button>
-      </article>
+      <!-- ── GRID: dos dimensiones (CATÁLOGO) ────────────────────────── -->
+      <section id="Catalogo">
+        <h2>Nuestro Catálogo</h2>
+        
+        <article data-id="1" data-nombre="Barra corrugada" data-precio="45" data-img="corrugada.jpg">
+          <img src="corrugada.jpg" alt="Barra corrugada de acero">
+          <div class="info-producto">
+            <h3>Barra corrugada</h3>
+            <p class="descripcion">Medidas de 6, 9 y 12 metros.</p>
+            <p class="precio">Bs 45.00 / unidad</p>
+          </div>
+          <button type="button" class="btn-agregar">+ Agregar al pedido</button>
+        </article>
 
-      <article data-producto="Cemento VIACHA Plus" data-precio="52">
-        <img src="viacha.jpg" alt="Cemento VIACHA Plus">
-        <div class="info-producto">
-          <h3>Cemento VIACHA Plus</h3>
-          <p class="descripcion">Fraguado rápido, resistente al frío.</p>
-          <p class="precio">Bs 52.00 / bolsa 50kg</p>
-        </div>
-        <button type="button" class="btn-agregar">+ Agregar al pedido</button>
-      </article>
+        <article data-id="2" data-nombre="Barra angular" data-precio="38" data-img="angular.jpg">
+          <img src="angular.jpg" alt="Barra angular de acero">
+          <div class="info-producto">
+            <h3>Barra angular</h3>
+            <p class="descripcion">Medidas de 6, 9 y 12 metros.</p>
+            <p class="precio">Bs 38.00 / unidad</p>
+          </div>
+          <button type="button" class="btn-agregar">+ Agregar al pedido</button>
+        </article>
 
-      <article data-producto="Cemento SOBOCE" data-precio="48">
-        <img src="soboce.jpg" alt="Cemento SOBOCE">
-        <div class="info-producto">
-          <h3>Cemento SOBOCE</h3>
-          <p class="descripcion">-30% huella de carbono.</p>
-          <p class="precio">Bs 48.00 / bolsa 50kg</p>
-        </div>
-        <button type="button" class="btn-agregar">+ Agregar al pedido</button>
-      </article>
-    </section>
+        <article data-id="3" data-nombre="Cemento VIACHA Plus" data-precio="52" data-img="viacha.jpg">
+          <img src="viacha.jpg" alt="Cemento VIACHA Plus">
+          <div class="info-producto">
+            <h3>Cemento VIACHA Plus</h3>
+            <p class="descripcion">Fraguado rápido, resistente al frío.</p>
+            <p class="precio">Bs 52.00 / bolsa 50kg</p>
+          </div>
+          <button type="button" class="btn-agregar">+ Agregar al pedido</button>
+        </article>
 
-    <!-- FORMULARIO DE PEDIDO (CARRITO DETALLADO) -->
-    <section id="Pedido">
-      <h2>Finalizar Pedido</h2>
-      <p>Revise sus datos y confirme la cantidad exacta.</p>
-      
-      <form action="/pedido" method="post">
-        <fieldset>
-          <legend>Datos de Contacto</legend>
-          <p><label for="nombre">Nombre completo</label>
-             <input type="text" id="nombre" name="nombre" required></p>
-          <p><label for="telefono">WhatsApp / Teléfono</label>
-             <input type="tel" id="telefono" name="telefono" required></p>
-        </fieldset>
+        <article data-id="4" data-nombre="Cemento SOBOCE" data-precio="48" data-img="soboce.jpg">
+          <img src="soboce.jpg" alt="Cemento SOBOCE">
+          <div class="info-producto">
+            <h3>Cemento SOBOCE</h3>
+            <p class="descripcion">-30% huella de carbono.</p>
+            <p class="precio">Bs 48.00 / bolsa 50kg</p>
+          </div>
+          <button type="button" class="btn-agregar">+ Agregar al pedido</button>
+        </article>
+      </section>
 
-        <fieldset>
-          <legend>Detalle del Pedido</legend>
-          <p><label for="producto">Producto principal</label>
-             <select id="producto" name="producto" required>
-               <option value="">-- Seleccionar --</option>
-               <option value="corrugada">Barra corrugada (Bs 45)</option>
-               <option value="angular">Barra angular (Bs 38)</option>
-               <option value="viacha">Cemento VIACHA Plus (Bs 52)</option>
-               <option value="soboce">Cemento SOBOCE (Bs 48)</option>
-             </select></p>
+      <!-- ── NUEVO: RESUMEN DEL CARRITO (Centrado y Semántico) ─────────── -->
+      <section id="resumen-carrito" style="display: none;">
+        <h2>Resumen de tu Pedido</h2>
+        <div id="lista-items-carrito" class="contenedor-items">
           
-          <p><label for="cantidad">Cantidad estimada</label>
-             <input type="number" id="cantidad" name="cantidad" min="1" value="1"></p>
-             
-          <p><label for="notas">Indicaciones extra</label>
-             <textarea id="notas" name="notas" rows="2" placeholder="Ej: Entrega en obra Av. Principal"></textarea></p>
-        </fieldset>
-
-        <button type="submit" class="btn-pedido">Confirmar Pedido por WhatsApp</button>
-      </form>
-    </section>
-  </main>
-
-  <aside id="Ubicacion">
-    <article>
-      <h3>¿Sabías?</h3>
-      <p>Trabajamos directo con fábrica para garantizar precio justo.</p>
-    </article>
-    <article>
-      <h3>Dónde estamos</h3>
-      <address>Av. Principal s/n<br>Tel: 7XX XXX XX</address>
-    </article>
-  </aside>
-
-  <footer>
-    <p>&copy; 2026 Distribuidor KateRey</p>
-  </footer>
-
-  <!-- SCRIPT MÍNIMO PARA EL CONTADOR Y FEEDBACK VISUAL -->
-  <script>
-    let contador = 0;
-    const spanTotal = document.getElementById('total-carrito');
-    const botones = document.querySelectorAll('.btn-agregar');
-
-    botones.forEach(btn => {
-      btn.addEventListener('click', function() {
-        // Aumentar contador
-        contador++;
-        spanTotal.textContent = contador;
+        </div>
         
-        // Feedback visual inmediato
-        const textoOriginal = this.textContent;
-        this.textContent = '✓ Agregado';
-        this.classList.add('agregado');
-        
-        // Restaurar botón después de 1.5 segundos
-        setTimeout(() => {
-          this.textContent = textoOriginal;
-          this.classList.remove('agregado');
-        }, 1500);
-      });
-    });
-  </script>
+        <div class="total-carrito">
+          <h3>Total Estimado: <span id="monto-total">Bs 0.00</span></h3>
+          <button class="btn-pedido" onclick="alert('Redirigiendo a WhatsApp...')">Confirmar Pedido por WhatsApp</button>
+          <button class="btn-seguir-comprando" onclick="document.getElementById('resumen-carrito').style.display='none'">Seguir comprando</button>
+        </div>
+      </section>
 
-</body>
+      <!-- ── UBICACIÓN Y DATOS ─────────────────────────────────────────── -->
+      <section id="Ubicacion">
+        <h2>¿Dónde estamos?</h2>
+        <address>
+          Av. Principal s/n<br>
+          Teléfono: 7XX XXX XX
+        </address>
+      </section>
+
+    </main>
+
+    <aside>
+      <article>
+        <h3>¿Sabías?</h3>
+        <p>Trabajamos directo con fábrica para garantizar precio justo.</p>
+      </article>
+    </aside>
+
+    <footer>
+      <p>&copy; 2026 Distribuidor KateRey</p>
+    </footer>
+
+    <!-- ── SCRIPT: lógica del carrito ──────────────────────────────────── -->
+    <script src="app.js"></script>
+
+  </body>
 </html>
