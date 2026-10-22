@@ -1,15 +1,15 @@
-/* ─ 1. EL RESET QUE SE PONE SIEMPRE ───────────────────────────────────── */
+/* ── 1. RESET ─────────────────────────────────────────────────────────── */
 *, *::before, *::after {
   box-sizing: border-box;
 }
 
-/* ── 2. CUSTOM PROPERTIES: se define una vez, se usa en todos lados ────── */
+/* ── 2. CUSTOM PROPERTIES ─────────────────────────────────────────────── */
 :root {
   --color-principal: hsl(210, 18%, 19%);
   --color-acento:    #12141c;
   --color-texto:     #1f2933;
   --color-suave:     #5c6b73;
-  --color-fondo:     #d2d6df;
+  --color-fondo:     #e6e8ef;
   --color-superficie: #ffffff;
   --borde:           #1b1d1c;
 
@@ -18,7 +18,7 @@
   --radio:      4px;
 }
 
-/* ── 3. TIPOGRAFÍA Y CENTRADO GLOBAL ──────────────────────────────────── */
+/* ── 3. BASE ──────────────────────────────────────────────────────────── */
 body {
   margin: 0;
   max-width: 78rem;
@@ -42,40 +42,16 @@ h3 { font-size: 1.15rem; }
 
 p { max-width: 65ch; }
 
-/* ── 4. ENLACES Y ESTADOS ──────────────────────────────────────────────── */
-nav a {
-  display: inline-block;
-  padding: 0.5rem 1rem;
-  border-radius: var(--radio);
-  font-weight: 600;
-  color: var(--color-texto);
-  text-decoration: none;
-  transition: all 0.2s ease;
-}
-nav a:hover {
-  background-color: var(--color-principal);
-  color: #fff;
-  transform: translateY(-2px);
-}
-.carrito-indicador a {
-  background-color: var(--color-fondo);
-  border: 1px solid var(--borde);
-}
-
-/* ── 5. EL MODELO DE CAJA EN ACCIÓN ────────────────────────────────────── */
-header {
-  padding: var(--espacio-lg) var(--espacio);
-  border-bottom: 3px solid var(--color-principal);
-  margin-bottom: var(--espacio-lg);
-}
-
-/* ── FLEXBOX: una dimensión ────────────────────────────────────────────── */
+/* ── 4. HEADER Y NAVEGACIÓN ───────────────────────────────────────────── */
 header {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
   gap: var(--espacio);
+  padding: var(--espacio-lg) var(--espacio);
+  border-bottom: 3px solid var(--color-principal);
+  margin-bottom: var(--espacio-lg);
 }
 
 nav ul {
@@ -87,40 +63,80 @@ nav ul {
   gap: 0.5rem;
 }
 
-/* ── GRID: dos dimensiones (CATÁLOGO) ──────────────────────────────────── */
+nav a {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  border-radius: var(--radio);
+  font-weight: 600;
+  color: var(--color-texto);
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+nav a:hover {
+  background-color: var(--color-principal);
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+.carrito-indicador a {
+  background-color: var(--color-fondo);
+  border: 1px solid var(--borde);
+}
+
+/* ── 5. CATÁLOGO (GRID) ───────────────────────────────────────────────── */
 #Catalogo {
+  display: block;
+}
+
+#lista-productos {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 16rem), 1fr));
   gap: var(--espacio);
   align-items: stretch;
 }
 
-#Catalogo h2 { grid-column: 1 / -1; }
-
-/* ── SE COMBINAN (TARJETAS) ────────────────────────────────────────────── */
-#Catalogo article {
+/* ── 6. TARJETAS DE PRODUCTO ──────────────────────────────────────────── */
+.tarjeta {
   display: flex;
   flex-direction: column;
   overflow: hidden;
   background: var(--color-superficie);
   border: 1px solid var(--borde);
   border-radius: var(--radio);
-  margin-bottom: 0;
+  width: 100%;
+  max-width: 20rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-#Catalogo article img {
+.tarjeta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.tarjeta img {
   width: 100%;
-  height: 12rem;
+  height: 12.5rem;
   object-fit: cover;
   border-bottom: 1px solid var(--borde);
+  display: block;
 }
 
 .info-producto {
   padding: var(--espacio);
   flex-grow: 1;
 }
-.info-producto h3 { margin-top: 0; margin-bottom: 0.5rem; }
-.descripcion { color: var(--color-suave); font-size: 0.95rem; margin-bottom: 1rem; }
+
+.info-producto h3 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+}
+
+.descripcion {
+  color: var(--color-suave);
+  font-size: 0.95rem;
+  margin-bottom: 1rem;
+}
 
 .precio {
   font-size: 1.25rem;
@@ -129,6 +145,7 @@ nav ul {
   margin: 0 0 var(--espacio);
 }
 
+/* ── 7. BOTÓN AGREGAR ─────────────────────────────────────────────────── */
 .btn-agregar {
   width: 100%;
   padding: 0.75rem;
@@ -141,82 +158,179 @@ nav ul {
   transition: all 0.2s;
   margin-top: auto;
 }
+
 .btn-agregar:hover {
   background: var(--color-principal);
   color: #fff;
 }
+
 .btn-agregar.agregado {
   background: #2e7d32;
   border-color: #2e7d32;
   color: #fff;
 }
 
-/* ── 6. TABLA LEGIBLE ──────────────────────────────────────────────────── */
-table {
-  border-collapse: collapse;
-  width: 100%;
-  max-width: 40rem;
+/* ── 8. CARRITO ───────────────────────────────────────────────────────── */
+#resumen-carrito {
+  margin-top: var(--espacio-lg);
   background: var(--color-superficie);
-  margin-top: var(--espacio);
-}
-caption {
-  text-align: left;
-  color: var(--color-suave);
-  padding-bottom: 0.5rem;
-}
-th, td {
-  text-align: left;
-  padding: 0.6rem 0.8rem;
-  border-bottom: 1px solid var(--borde);
-}
-th {
-  background: var(--color-principal);
-  color: #fff;
+  border: 1px solid var(--borde);
+  border-radius: 8px;
+  padding: var(--espacio-lg);
+  max-width: 44rem;
+  margin-inline: auto;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
 }
 
-/* ── 7. FORMULARIO ─────────────────────────────────────────────────────── */
+#resumen-carrito h2 {
+  margin-top: 0;
+  text-align: center;
+  border-bottom: 2px solid var(--color-fondo);
+  padding-bottom: 0.75rem;
+}
+
+.item-carrito {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--borde);
+}
+
+.item-carrito img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: var(--radio);
+}
+
+.detalle-item {
+  flex: 1;
+}
+
+.controles-cantidad {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.controles-cantidad button {
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--borde);
+  background: var(--color-fondo);
+  border-radius: var(--radio);
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.total-carrito {
+  margin-top: var(--espacio-lg);
+  text-align: center;
+  border-top: 1px solid var(--borde);
+  padding-top: var(--espacio);
+}
+
+/* ── FORMULARIO DE PEDIDO ─────────────────────────────────────────── */
+#pedido {
+  margin-top: var(--espacio-lg);
+  max-width: 36rem;
+  margin-inline: auto;
+}
+
+#pedido h2 {
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: var(--espacio);
+}
+
+#formulario-pedido {
+  width: 100%;
+}
+
 fieldset {
   border: 1px solid var(--borde);
-  border-radius: var(--radio);
-  padding: var(--espacio);
+  border-radius: 8px;
+  padding: 1.25rem;
   margin-bottom: var(--espacio);
-  max-width: 32rem;
+  width: 100%;
+  max-width: 100%;
+  background: var(--color-superficie);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
 }
+
 legend {
-  padding: 0 0.4rem;
+  padding: 0 0.5rem;
   font-weight: 600;
   color: var(--color-principal);
 }
+
 label {
   display: block;
   margin-bottom: 0.25rem;
   font-weight: 500;
 }
-input, select, textarea {
+
+input,
+select,
+textarea {
   font-size: 1rem;
   font-family: inherit;
   padding: 0.5rem;
   width: 100%;
   border: 1px solid var(--borde);
   border-radius: var(--radio);
+  margin-bottom: 0.75rem;
+  background: #fff;
 }
-input[type="checkbox"] { width: auto; }
+
+input[type="checkbox"] {
+  width: auto;
+  margin-right: 0.5rem;
+}
+
+/* El label del checkbox no debe ser block */
+input[type="checkbox"] + label {
+  display: inline;
+  font-weight: 400;
+}
 
 .btn-pedido {
   width: 100%;
-  padding: 0.8rem;
-  background: var(--color-acento);
+  max-width: 320px;
+  display: block;
+  margin: var(--espacio) auto 0 auto;
+  padding: 0.85rem;
+  background: var(--color-principal);
   color: #fff;
   border: 0;
   border-radius: var(--radio);
-  font-size: 1.1rem;
+  font-size: 1.05rem;
   font-weight: bold;
   cursor: pointer;
-  margin-top: var(--espacio);
+  transition: background-color 0.2s ease, transform 0.2s ease;
 }
-.btn-pedido:hover { background: #09c613; }
 
-img { max-width: 100%; height: auto; }
+.btn-pedido:hover {
+  background: #2e7d32;
+  transform: translateY(-1px);
+}
+
+.btn-seguir-comprando {
+  display: block;
+  margin: 0.75rem auto 0 auto;
+  text-align: center;
+  background: transparent;
+  border: none;
+  color: var(--color-suave);
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+/* ── 9. FOOTER Y ASIDE ────────────────────────────────────────────────── */
+aside {
+  margin-top: var(--espacio-lg);
+}
 
 footer {
   margin-top: var(--espacio-lg);
@@ -225,22 +339,303 @@ footer {
   color: var(--color-suave);
 }
 
-/* ── La página completa, con áreas nombradas (RESPONSIVE) ─────────────── */
-@media (min-width: 60rem) {
-  body { 
-    display: block; 
-    padding: 0 var(--espacio-lg); 
-  }
-  aside {
-    margin-top: var(--espacio-lg);
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
-    gap: var(--espacio);
-  }
-  aside article { margin-bottom: 0; }
+/* ── 10. RESPONSIVE ───────────────────────────────────────────────────── */
+@media (min-width: 40rem) {
+  h1 { font-size: 2.5rem; }
 }
 
-/* ─ Escalón de tablet ─────────────────────────────────────────────────── */
+@media (min-width: 60rem) {
+  body {
+    padding: 0 var(--espacio-lg);
+  }
+}
+
+/* ── El bug del día: de dónde sale el scroll horizontal ────────────────── */
+
+/* ── Escalón de tablet ─────────────────────────────────────────────────── */
 @media (min-width: 40rem) {
   h1     { font-size: 2.5rem; }
+  header { padding-inline: var(--espacio-lg); }
+  nav ul { gap: var(--espacio-lg); }
+}
+
+.stock {
+  margin: 0;
+  color: var(--color-suave);
+  font-size: 0.9rem;
+}
+
+.agotado {
+  background: var(--color-fondo);
+  opacity: 0.75;
+}
+
+.agotado .precio {
+  text-decoration: line-through;
+}
+
+
+
+/* ── 11. BUSCADOR Y FILTROS DE PRODUCTOS ───────────────────────────────── */
+.controles {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: var(--espacio-lg);
+}
+
+.buscador-caja {
+  display: flex;
+  align-items: stretch;
+  gap: 0.5rem;
+  width: 100%;
+  max-width: 32rem;
+}
+
+#buscador {
+  flex: 1;
+  margin-bottom: 0;
+  padding: 0.65rem 1rem;
+  font-size: 0.95rem;
+  font-family: inherit;
+  color: var(--color-texto);
+  background-color: var(--color-superficie);
+  border: 1.5px solid #cbd2d9;
+  border-radius: var(--radio);
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+#buscador:focus {
+  border-color: var(--color-principal);
+  box-shadow: 0 0 0 3px rgba(33, 43, 54, 0.15);
+}
+
+#btn-buscar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  padding: 0.65rem 1.25rem;
+  font-family: inherit;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #ffffff;
+  background-color: var(--color-principal);
+  border: 1.5px solid var(--color-principal);
+  border-radius: var(--radio);
+  cursor: pointer;
+  white-space: nowrap;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease;
+}
+
+#btn-buscar .icono-buscar {
+  width: 16px;
+  height: 16px;
+  stroke: currentColor;
+  transition: transform 0.2s ease;
+}
+
+#btn-buscar:hover {
+  background-color: var(--color-acento);
+  border-color: var(--color-acento);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.16);
+}
+
+#btn-buscar:hover .icono-buscar {
+  transform: scale(1.1);
+}
+
+#btn-buscar:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12);
+}
+
+#btn-buscar:focus-visible {
+  outline: 2px solid var(--color-principal);
+  outline-offset: 2px;
+}
+
+#filtros {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+#filtros button {
+  background: transparent;
+  color: var(--color-principal);
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+  padding: 0.4rem 0.9rem;
+  min-height: 40px;
+  font-family: inherit;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+#filtros button:hover {
+  background: var(--color-fondo);
+  color: var(--color-principal);
+}
+
+#filtros button.activo {
+  background: var(--color-principal);
+  color: #fff;
+  border-color: var(--color-principal);
+}
+
+#resultado {
+  width: 100%;
+  color: var(--color-suave);
+  font-size: 0.9rem;
+  font-weight: 500;
+  min-height: 1.4em;
+  margin: 0.25rem 0 0 0;
+}
+
+/* ── Ocultar SOLO para la vista, no para el lector de pantalla ─────────── */
+.visualmente-oculto {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ── 12. CONFIRMACIÓN Y RECIBO PDF ─────────────────────────────────────── */
+.tarjeta-confirmacion {
+  margin-top: var(--espacio-lg);
+  padding: 1.5rem;
+  background: #ffffff;
+  border: 2px solid #2e7d32;
+  border-radius: 8px;
+  box-shadow: 0 4px 14px rgba(46, 125, 50, 0.12);
+  text-align: center;
+  max-width: 32rem;
+  animation: aparecer 0.3s ease-out;
+}
+
+@keyframes aparecer {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.tarjeta-confirmacion .icono-exito {
+  font-size: 2.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.tarjeta-confirmacion h3 {
+  margin: 0 0 0.5rem 0;
+  color: #1e3a1f;
+  font-size: 1.35rem;
+}
+
+.tarjeta-confirmacion p {
+  margin: 0 auto 1rem auto;
+  color: var(--color-texto);
+  font-size: 0.95rem;
+}
+
+.bloque-codigo-recibo {
+  display: inline-block;
+  background: #f1f5f9;
+  border: 1px dashed var(--borde);
+  padding: 0.4rem 1rem;
+  border-radius: var(--radio);
+  margin-bottom: 1.25rem;
+  font-size: 0.95rem;
+}
+
+.bloque-codigo-recibo strong {
+  color: #0f172a;
+  font-size: 1.1rem;
+  margin-left: 0.35rem;
+  letter-spacing: 0.5px;
+}
+
+.acciones-recibo {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: center;
+}
+
+.btn-descargar-pdf {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 0.7rem 1.2rem;
+  background: #1f2933;
+  color: #ffffff;
+  border: none;
+  border-radius: var(--radio);
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-descargar-pdf:hover {
+  background: #12141c;
+  transform: translateY(-1px);
+}
+
+.btn-abrir-wa {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 0.7rem 1.2rem;
+  background: #25d366;
+  color: #ffffff;
+  text-decoration: none;
+  border-radius: var(--radio);
+  font-size: 0.95rem;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.btn-abrir-wa:hover {
+  background: #1ebe5d;
+  transform: translateY(-1px);
+}
+
+.btn-compartir-pdf {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 0.7rem 1.2rem;
+  background: #0284c7;
+  color: #ffffff;
+  border: none;
+  border-radius: var(--radio);
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-compartir-pdf:hover {
+  background: #0369a1;
+  transform: translateY(-1px);
+}
+
+.nota-adjuntar {
+  margin-top: 1.25rem;
+  font-size: 0.85rem;
+  color: var(--color-suave);
+  line-height: 1.4;
+  text-align: center;
 }

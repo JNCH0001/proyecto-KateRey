@@ -1,32 +1,37 @@
-# Distribuidor KateRey — Sitio Web de Materiales de Construcción
+# Distribuidor KateRey - Catálogo y Preventa Web
 
 **Estudiante:** Jhamil Najum Chino Huarachi  
-**Proyecto:** Distribuidor KateRey  
-**Rubro:** Venta y distribución de materiales de construcción
+**Cliente:** Distribuidor KateRey  
+**URL:** [Próximamente disponible]
 
-## Qué resuelve
-El sitio web permite presentar un catalogo de materiales de construccion mostrar los precios por unidad o bolsa y facilitar que los clientes preparen sus pedidos Incluye productos como barras corrugadas barras angulares y cemento de las marcas VIACHA Plus y SOBOCE.
-## Cómo está construido
-- **Estructura HTML5:** Se utilizaron etiquetas semánticas como `<header>` para la cabecera, `<nav>` para el menú de navegación, `<main>` para el contenido principal, `<section>` para el catálogo y el formulario, `<article>` para cada producto, `<aside>` para información complementaria y `<footer>` para el pie de página.
-- **Catálogo de productos:** Cada tarjeta contiene una imagen, el nombre del material, una descripción breve, su precio y un botón para agregarlo al pedido. Los atributos `data-producto` y `data-precio` identifican el producto y su precio dentro del HTML.
-- **Diseño adaptable:** Se empleó **Flexbox** en la cabecera y el menú para distribuir los elementos y permitir que se acomoden en varias líneas. **CSS Grid** organiza las tarjetas del catálogo mediante `repeat(auto-fit, minmax(16rem, 1fr))`, ajustando las columnas al ancho disponible.
-- **Colores y presentación:** La identidad visual utiliza una paleta sobria relacionada con un negocio de materiales de construcción:
-  - Azul oscuro `#1a4a7a` como color principal para títulos, navegación y bordes destacados
-  - Gris oscuro `#1f2933` para el texto principal.
-  - Gris azulado `#5c6b73` para descripciones y texto secundario.
-  - Gris muy claro `#f7f8f7` para el fondo y blanco `#ffffff` para las tarjetas.
-  Los colores se definieron como variables CSS en `:root`, lo que facilita mantener una apariencia consistente.
-- **Interactividad con JavaScript:** Al pulsar “Agregar al pedido” el contador visual del carrito aumenta y el botón muestra temporalmente el mensaje “Agregado”. El indicador cuenta los clics, pero todavía no almacena una lista detallada de productos ni calcula el importe total.
-## Archivos del proyecto
-- `index.html`: contiene la estructura de la página, el catálogo, el formulario y el script del contador.
-- `estilos.css`: define los colores, la tipografía, las tarjetas, los botones y la distribución adaptable.
-- `corrugada.jpg`, `angular.jpg`, `viacha.jpg` y `soboce.jpg`: imágenes que deben estar en la misma carpeta que `index.html` para mostrarse correctamente.
+---
 
-## Captura de pantalla
--`C:\Users\LENOVO AMD Ryzen 3\OneDrive\Escritorio\PROYECTO WEB\Captura de pantalla.png`
+## ¿Qué problema resuelve?
+El negocio dependía de tomar pedidos a mano o por llamadas contratando personal extra que encarecía los costos y causaba errores en los pedidos. Ademas, el cliente no recibía ningún tipo de recibo de respaldo.
 
-## Lo más difícil
-Una de las dificultades es mantener las tarjetas de los materiales ordenadas en pantallas de diferentes tamaños. Para resolverlo se utiliza CSS Grid con columnas flexibles. También se emplea Flexbox en la cabecera para que el nombre del distribuidor y el menú puedan reorganizarse cuando hay menos espacio. Otro detalle importante es mantener los botones de las tarjetas al final de cada producto.
+Con esta web, el cliente consulta el catálogo en vivo y no depende de los prevendedores y de estar de manera presencial busca lo que necesita arma su carrito y genera un **recibo en PDF** que luego confirma al instante por WhatsApp por el momento.
 
-## Aspectos pendientes de funcionalidad
-El contador del carrito es una demostración visual y no representas todavía un carrito completo. Además, el formulario utiliza `action="/pedido"` por lo que necesita un servidor que reciba la información. Aunque el botón indica “Confirmar Pedido por WhatsApp” el código actual no abre WhatsApp automáticamente; esa integración debe añadirse por separado.
+---
+
+## ¿Cómo lo construí?
+- **HTML5:** Usé etiquetas semánticas (`header`, `nav`, `main`, `section`, `article`, `footer`) para estructurar de forma limpia la tienda, el carrito y el formulario.
+- **CSS Grid y Flexbox:** Usé **Grid** en el catálogo para que las tarjetas se acomoden solas a cualquier pantalla, y **Flexbox** en la barra de navegación, el buscador y el carrito para alinear los controles.
+- **Diseño y Colores:** Elegí tonos industriales oscuros (`#1f2933`, `#12141c`) y detalles en verde éxito (`#2e7d32`) que combinan con el rubro de la construcción, junto a una tipografía rápida del sistema.
+
+## Captura de Pantalla
+
+![Catálogo Distribuidor KateRey](Captura-pantalla.png)
+
+
+## Mejoras que implementé en el camino
+
+1. **Arreglé el buscador:** El botón no respondía porque tenía una variable duplicada (`formulario`) en dos archivos JavaScript distintos que bloqueaba el código. Lo solucioné, le di estilo con un icono de lupa  y amplié la búsqueda para encontrar productos por nombre, categoría (ej. cemento, acero) o descripción.
+2. **Controlé el tamaño de los productos:** Al buscar algo y encontrar un solo producto, la tarjeta se estiraba gigante ocupando toda la pantalla y deformaba la imagen. Lo resolví cambiando a `auto-fill` en CSS Grid y fijando un ancho máximo para que la tarjeta se mantenga compacta.
+3. **Generador de Recibos en PDF (`recivo.js`):** Añadí la librería `jsPDF` para que al confirmar el pedido se descargue automáticamente una nota de venta formal en PDF con código único (`KR-XXXXX`), datos del cliente y lista de productos con precios en Bolivianos.
+4. **Envío por WhatsApp y compartir archivo:** Diseñé el mensaje de WhatsApp tipo factura y activé el botón para compartir el PDF directamente desde celulares usando la función nativa del sistema.
+
+
+## 💡 Lo que más me costó
+Lo más difícil fue encontrar por qué el buscador no funcionaba: en pantalla no salía ningún error visible, pero en la consola había un conflicto por declarar dos veces la misma variable en archivos diferentes. También me costó calibrar el CSS Grid para que un solo producto no se estire cuando no hay más tarjetas a su lado.
+
+

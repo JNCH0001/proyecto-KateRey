@@ -1,0 +1,33 @@
+ERRORES Y ARREGLOS DE TU PROYECTO: Distribuidor KateRey (21 de octubre)
+========================================================================
+
+Jhamil_Chino_1 es tu proyecto con todo arreglado. Tu carpeta original no se tocó.
+Ábrela con live-server y revisa cada cambio antes de hacer tu commit. La guía "Depurar el render"
+explica cada uno de estos errores.
+
+TU PÁGINA FUNCIONA
+------------------
+Las 12 tarjetas se generan desde datos.js, con su foto, el carrito funciona, no hay errores en la
+consola, el HTML está bien cerrado y en el celular no aparece barra horizontal. Bien hecho.
+
+LO ÚNICO QUE SE CAMBIÓ
+----------------------
+- Tu README mostraba la captura con una ruta de tu computadora
+  (C:\Users\...\Captura de pantalla.png): en GitHub no se ve.
+  -> La captura se llama captura-escritorio.png y el README la muestra con
+     ![Escritorio](captura-escritorio.png).
+
+LO QUE TE TOCA A TI
+-------------------
+- Tienes solo 2 commits (12 y 19 de octubre) y 15 archivos sin commit, entre ellos datos.js,
+  render.js y 7 fotos: si se pierde la carpeta, se pierden. El commit diario se califica.
+
+CÓMO SEGUIR
+-----------
+Esta carpeta tiene tu .git: es tu mismo repositorio, con toda tu historia. No crees otro.
+Trabaja desde aquí, y la carpeta vieja queda solo de respaldo. En Git Bash, dentro de esta carpeta:
+
+    git add .
+    git commit -m "fix: las tarjetas se generan desde los datos, con foto"
+
+git push lo sube a tu mismo GitHub.
