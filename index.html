@@ -1,178 +1,183 @@
 <!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Distribuidor de materiales de construcción garantizados. Cemento, acero y más.">
-    <title>Distribuidor KateRey</title>
-    <link rel="stylesheet" href="estilos.css">
-  </head>
-  <body>
 
-    <header>
-      <div class="branding">
-        <h1>Distribuidor KateRey</h1>
-        <p>Material de construcción garantizado</p>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Distribuidor de materiales de construcción garantizados. Cemento, acero y más.">
+  <title>Distribuidor KateRey</title>
+  <link rel="stylesheet" href="estilos.css">
+</head>
+
+<body>
+
+  <header>
+    <div class="branding">
+      <h1>Distribuidor KateRey</h1>
+      <p>Material de construcción garantizado</p>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="#Catalogo">Catálogo</a></li>
+        <li><a href="#Horarios">Horarios</a></li>
+        <li><a href="#Ubicacion">Ubicación</a></li>
+        <li class="carrito-indicador">
+          <a href="#resumen-carrito">Carrito (<span id="total-carrito">0</span>)</a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Contenedor donde se pintan las tarjetas dinámicamente -->
+    <section id="Catalogo">
+      <h2>Nuestro Catálogo</h2>
+
+      <!-- BUSCADOR Y FILTROS -->
+      <div class="controles">
+        <div class="buscador-caja">
+          <input type="search" id="buscador" placeholder="Buscar producto… (ej: cemento, acero, arena)"
+            aria-label="Buscar producto">
+          <button type="button" id="btn-buscar">
+            <svg class="icono-buscar" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+              fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+              aria-hidden="true">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <span>Buscar</span>
+          </button>
+        </div>
+
+
+
+        <p id="resultado" aria-live="polite"></p>
       </div>
-      <nav>
-        <ul>
-          <li><a href="#Catalogo">Catálogo</a></li>
-          <li><a href="#Horarios">Horarios</a></li>
-          <li><a href="#Ubicacion">Ubicación</a></li>
-          <li class="carrito-indicador">
-            <a href="#resumen-carrito">Carrito (<span id="total-carrito">0</span>)</a>
-          </li>
-        </ul>
-      </nav>
-    </header>
 
-    <main>
-      <!-- Contenedor donde se pintan las tarjetas dinámicamente -->
-           <section id="Catalogo">
-        <h2>Nuestro Catálogo</h2>
+      <div id="lista-productos"></div>
+    </section>
+    <!-- Resumen del carrito -->
+    <section id="resumen-carrito" style="display: none;">
+      <h2>Resumen de tu Pedido</h2>
+      <div id="lista-items-carrito" class="contenedor-items"></div>
 
-        <!-- BUSCADOR Y FILTROS -->
-        <div class="controles">
-          <div class="buscador-caja">
-            <input
-              type="search"
-              id="buscador"
-              placeholder="Buscar producto… (ej: cemento, acero, arena)"
-              aria-label="Buscar producto">
-            <button type="button" id="btn-buscar">
-              <svg class="icono-buscar" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <circle cx="11" cy="11" r="8"></circle>
-                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-              </svg>
-              <span>Buscar</span>
-            </button>
-          </div>
+      <div class="total-carrito">
+        <h3>Total Estimado: <span id="monto-total">Bs 0.00</span></h3>
+        <button class="btn-pedido" id="btn-ir-formulario">Continuar con mis datos →</button>
+        <button class="btn-seguir-comprando" id="btn-seguir">Seguir comprando</button>
+      </div>
+    </section>
 
-  
+    <!-- ── FORMULARIO DE PEDIDO ─────────────────────────────────────────── -->
+    <section id="pedido">
+      <h2>Hacer un pedido</h2>
 
-          <p id="resultado" aria-live="polite"></p>
+      <form id="formulario-pedido" action="#" method="post">
+
+        <fieldset>
+          <legend>Tus datos</legend>
+
+          <p>
+            <label for="nombre">Nombre completo</label>
+            <input type="text" id="nombre" name="nombre" autocomplete="name" required>
+          </p>
+
+          <p>
+            <label for="email">Correo electronico</label>
+            <input type="email" id="email" name="email" autocomplete="email" required>
+          </p>
+
+          <p>
+            <label for="telefono">Telefono</label>
+            <input type="tel" id="telefono" name="telefono" autocomplete="tel" pattern="[0-9]{7,8}"
+              title="7 u 8 digitos, sin espacios" required>
+          </p>
+        </fieldset>
+
+        <fieldset>
+          <legend>Tu pedido</legend>
+
+          <p>
+            <label for="fecha">Fecha de entrega</label>
+            <input type="date" id="fecha" name="fecha" required>
+          </p>
+
+          <p>
+            <label for="notas">Alguna indicacion</label>
+            <textarea id="notas" name="notas" rows="3"></textarea>
+          </p>
+
+          <p>
+            <input type="checkbox" id="terminos" name="terminos" required>
+            <label for="terminos">Acepto que el pedido se confirma por telefono o WhatsApp</label>
+          </p>
+        </fieldset>
+
+        <button type="submit" class="btn-pedido">Enviar pedido</button>
+      </form>
+
+      <!-- Confirmación de pedido y recibo PDF -->
+      <div id="confirmacion-pedido" style="display: none;" class="tarjeta-confirmacion">
+        <div class="icono-exito">✅</div>
+        <h3>¡Pedido registrado con éxito!</h3>
+        <p>Se ha generado tu <strong>Recibo oficial en PDF</strong> y abierto el chat de WhatsApp con el número de
+          KateRey.</p>
+        <div class="bloque-codigo-recibo">
+          <span>N° de Recibo:</span>
+          <strong id="conf-codigo-recibo">KR-00000</strong>
         </div>
-
-        <div id="lista-productos"></div>
-      </section>
-      <!-- Resumen del carrito -->
-      <section id="resumen-carrito" style="display: none;">
-        <h2>Resumen de tu Pedido</h2>
-        <div id="lista-items-carrito" class="contenedor-items"></div>
-        
-        <div class="total-carrito">
-          <h3>Total Estimado: <span id="monto-total">Bs 0.00</span></h3>
-          <button class="btn-pedido" id="btn-ir-formulario">Continuar con mis datos →</button>
-          <button class="btn-seguir-comprando" id="btn-seguir">Seguir comprando</button>
+        <div class="acciones-recibo">
+          <button type="button" id="btn-compartir-pdf" class="btn-compartir-pdf">
+            📤 Compartir archivo PDF a WhatsApp
+          </button>
+          <button type="button" id="btn-re-descargar-pdf" class="btn-descargar-pdf">
+            📄 Volver a descargar PDF
+          </button>
+          <a id="btn-abrir-whatsapp-link" href="#" target="_blank" class="btn-abrir-wa">
+            💬 Abrir chat WhatsApp
+          </a>
         </div>
-      </section>
+        <p class="nota-adjuntar">💡 <em>En celular puedes usar "Compartir archivo PDF a WhatsApp". En computadora, el
+            PDF ya fue descargado; solo arrástralo o usa el clip (📎) en el chat abierto.</em></p>
+      </div>
+    </section>
 
-      <!-- ── FORMULARIO DE PEDIDO ─────────────────────────────────────────── -->
-      <section id="pedido">
-        <h2>Hacer un pedido</h2>
+    <section id="Horarios">
+      <h2>Horarios de atención: 7:00 - 18:00 todos los días</h2>
+    </section>
 
-        <form id="formulario-pedido" action="#" method="post">
+    <section id="Ubicacion">
+      <h2>¿Dónde estamos?</h2>
+      <address>
+        Av. Principal s/n<br>
+        Teléfono: 69389264
+      </address>
+    </section>
+  </main>
 
-          <fieldset>
-            <legend>Tus datos</legend>
+  <aside>
+    <article>
+      <h3>¿Sabías?</h3>
+      <p>Trabajamos directo con fábrica para garantizar precio justo.</p>
+    </article>
+  </aside>
 
-            <p>
-              <label for="nombre">Nombre completo</label>
-              <input type="text" id="nombre" name="nombre" autocomplete="name" required>
-            </p>
+  <footer>
+    <p>&copy; 2026 Distribuidor KateRey</p>
+  </footer>
 
-            <p>
-              <label for="email">Correo electronico</label>
-              <input type="email" id="email" name="email" autocomplete="email" required>
-            </p>
+  <!-- Librería jsPDF para generación de PDFs -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <!-- libreria jquery -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <!-- Orden importante -->
+  <script src="datos.js"></script>
+  <script src="recivo.js"></script>
+  <script src="funciones.js"></script>
+  <script src="render.js"></script>
+  <script src="app.js"></script>
+  <script src="eventos.js"></script>
+  <script src="jquery-comparado.js"></script>
+</body>
 
-            <p>
-              <label for="telefono">Telefono</label>
-              <input type="tel" id="telefono" name="telefono"
-                     autocomplete="tel" pattern="[0-9]{7,8}"
-                     title="7 u 8 digitos, sin espacios" required>
-            </p>
-          </fieldset>
-
-          <fieldset>
-            <legend>Tu pedido</legend>
-
-            <p>
-              <label for="fecha">Fecha de entrega</label>
-              <input type="date" id="fecha" name="fecha" required>
-            </p>
-
-            <p>
-              <label for="notas">Alguna indicacion</label>
-              <textarea id="notas" name="notas" rows="3"></textarea>
-            </p>
-
-            <p>
-              <input type="checkbox" id="terminos" name="terminos" required>
-              <label for="terminos">Acepto que el pedido se confirma por telefono o WhatsApp</label>
-            </p>
-          </fieldset>
-
-          <button type="submit" class="btn-pedido">Enviar pedido</button>
-        </form>
-
-        <!-- Confirmación de pedido y recibo PDF -->
-        <div id="confirmacion-pedido" style="display: none;" class="tarjeta-confirmacion">
-          <div class="icono-exito">✅</div>
-          <h3>¡Pedido registrado con éxito!</h3>
-          <p>Se ha generado tu <strong>Recibo oficial en PDF</strong> y abierto el chat de WhatsApp con el número de KateRey.</p>
-          <div class="bloque-codigo-recibo">
-            <span>N° de Recibo:</span>
-            <strong id="conf-codigo-recibo">KR-00000</strong>
-          </div>
-          <div class="acciones-recibo">
-            <button type="button" id="btn-compartir-pdf" class="btn-compartir-pdf">
-              📤 Compartir archivo PDF a WhatsApp
-            </button>
-            <button type="button" id="btn-re-descargar-pdf" class="btn-descargar-pdf">
-              📄 Volver a descargar PDF
-            </button>
-            <a id="btn-abrir-whatsapp-link" href="#" target="_blank" class="btn-abrir-wa">
-              💬 Abrir chat WhatsApp
-            </a>
-          </div>
-          <p class="nota-adjuntar">💡 <em>En celular puedes usar "Compartir archivo PDF a WhatsApp". En computadora, el PDF ya fue descargado; solo arrástralo o usa el clip (📎) en el chat abierto.</em></p>
-        </div>
-      </section>
-
-      <section id="Horarios">
-        <h2>Horarios de atención: 7:00 - 18:00 todos los días</h2>
-      </section>
-
-      <section id="Ubicacion">
-        <h2>¿Dónde estamos?</h2>
-        <address>
-          Av. Principal s/n<br>
-          Teléfono: 69389264
-        </address>
-      </section>
-    </main>
-
-    <aside>
-      <article>
-        <h3>¿Sabías?</h3>
-        <p>Trabajamos directo con fábrica para garantizar precio justo.</p>
-      </article>
-    </aside>
-
-    <footer>
-      <p>&copy; 2026 Distribuidor KateRey</p>
-    </footer>
-
-    <!-- Librería jsPDF para generación de PDFs -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-
-    <!-- Orden importante -->
-    <script src="datos.js"></script>
-    <script src="recivo.js"></script>
-    <script src="funciones.js"></script>
-    <script src="render.js"></script>
-    <script src="app.js"></script>
-    <script src="eventos.js"></script>
-  </body>
 </html>
