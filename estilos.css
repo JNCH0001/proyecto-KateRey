@@ -1,21 +1,23 @@
 /* ── 1. RESET ─────────────────────────────────────────────────────────── */
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
 /* ── 2. CUSTOM PROPERTIES ─────────────────────────────────────────────── */
 :root {
   --color-principal: hsl(210, 18%, 19%);
-  --color-acento:    #12141c;
-  --color-texto:     #1f2933;
-  --color-suave:     #5c6b73;
-  --color-fondo:     #e6e8ef;
+  --color-acento: #12141c;
+  --color-texto: #1f2933;
+  --color-suave: #5c6b73;
+  --color-fondo: #e6e8ef;
   --color-superficie: #ffffff;
-  --borde:           #1b1d1c;
+  --borde: #1b1d1c;
 
-  --espacio:    1rem;
+  --espacio: 1rem;
   --espacio-lg: 2rem;
-  --radio:      4px;
+  --radio: 4px;
 }
 
 /* ── 3. BASE ──────────────────────────────────────────────────────────── */
@@ -31,16 +33,30 @@ body {
   background: var(--color-fondo);
 }
 
-h1, h2, h3 {
+h1,
+h2,
+h3 {
   line-height: 1.2;
   color: var(--color-principal);
 }
 
-h1 { font-size: 2rem; margin-bottom: 0.25rem; }
-h2 { font-size: 1.5rem; margin-top: var(--espacio-lg); }
-h3 { font-size: 1.15rem; }
+h1 {
+  font-size: 2rem;
+  margin-bottom: 0.25rem;
+}
 
-p { max-width: 65ch; }
+h2 {
+  font-size: 1.5rem;
+  margin-top: var(--espacio-lg);
+}
+
+h3 {
+  font-size: 1.15rem;
+}
+
+p {
+  max-width: 65ch;
+}
 
 /* ── 4. HEADER Y NAVEGACIÓN ───────────────────────────────────────────── */
 header {
@@ -290,7 +306,7 @@ input[type="checkbox"] {
 }
 
 /* El label del checkbox no debe ser block */
-input[type="checkbox"] + label {
+input[type="checkbox"]+label {
   display: inline;
   font-weight: 400;
 }
@@ -341,7 +357,9 @@ footer {
 
 /* ── 10. RESPONSIVE ───────────────────────────────────────────────────── */
 @media (min-width: 40rem) {
-  h1 { font-size: 2.5rem; }
+  h1 {
+    font-size: 2.5rem;
+  }
 }
 
 @media (min-width: 60rem) {
@@ -354,9 +372,17 @@ footer {
 
 /* ── Escalón de tablet ─────────────────────────────────────────────────── */
 @media (min-width: 40rem) {
-  h1     { font-size: 2.5rem; }
-  header { padding-inline: var(--espacio-lg); }
-  nav ul { gap: var(--espacio-lg); }
+  h1 {
+    font-size: 2.5rem;
+  }
+
+  header {
+    padding-inline: var(--espacio-lg);
+  }
+
+  nav ul {
+    gap: var(--espacio-lg);
+  }
 }
 
 .stock {
@@ -525,8 +551,15 @@ footer {
 }
 
 @keyframes aparecer {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .tarjeta-confirmacion .icono-exito {
@@ -638,4 +671,78 @@ footer {
   color: var(--color-suave);
   line-height: 1.4;
   text-align: center;
+}
+
+/* ── 13. BOTONES DEL NAV (Modo Oscuro / Cargar Remotos) ─────────────────── */
+.btn-nav {
+  background: transparent;
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+  padding: 0.4rem 0.9rem;
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--color-texto);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.btn-nav:hover {
+  background: var(--color-principal);
+  color: #fff;
+  border-color: var(--color-principal);
+}
+
+/* ── 14. MODO OSCURO ─────────────────────────────────────────────────────── */
+body.tema-oscuro {
+  --color-fondo: #0f1117;
+  --color-superficie: #1a1d27;
+  --color-texto: #e2e8f0;
+  --color-suave: #94a3b8;
+  --borde: #2d3748;
+  --color-principal: hsl(210, 40%, 55%);
+  --color-acento: #7dd3fc;
+}
+
+body.tema-oscuro input,
+body.tema-oscuro select,
+body.tema-oscuro textarea {
+  background: #616c9c;
+  color: #e2e8f0;
+  border-color: #2d3748;
+}
+
+body.tema-oscuro fieldset {
+  background: #1a1d27;
+}
+
+body.tema-oscuro .tarjeta {
+  background: #1a1d27;
+}
+
+body.tema-oscuro #resumen-carrito {
+  background: #1a1d27;
+}
+
+body.tema-oscuro .btn-nav {
+  color: #e2e8f0;
+}
+#Catalogo,
+#Horarios,
+#Ubicacion,
+#pedido,
+#resumen-carrito {
+  scroll-margin-top: 1rem;
+}
+/* ── ARREGLO: Botones + y - del carrito en modo oscuro ── */
+body.tema-oscuro .controles-cantidad button {
+  background: #2d3748;      /* Un gris oscuro un poco más claro que el fondo */
+  color: #e2e8f0;           /* Texto blanco/grisáceo para que se lea */
+  border-color: #4a5568;    /* Borde más visible */
+}
+
+body.tema-oscuro .controles-cantidad button:hover {
+  background: var(--color-principal); /* El azul claro de tu tema oscuro */
+  color: var(--color-fondo);
 }

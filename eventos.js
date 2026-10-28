@@ -77,14 +77,18 @@ if (filtros) {
 }
 
 // ── 6. EXPRESIONES REGULARES, LO JUSTO ──────────────────────────────────
-const PATRONES = {
+const PATRONES_REGEX = {
   telefono: /^[0-9]{7,8}$/,
   correo: /^[^@\s]+@[^@\s]+\.[a-z]{2,}$/i,
   ci: /^[0-9]{5,10}(-[0-9A-Za-z]{1,3})?$/,
 };
 
-console.log("70123456 válido:", PATRONES.telefono.test("70123456"));
-console.log("7012 válido:", PATRONES.telefono.test("7012"));
-console.log("ana@correo.bo válido:", PATRONES.correo.test("ana@correo.bo"));
+console.log("70123456 válido:", PATRONES_REGEX.telefono.test("70123456"));
+console.log("7012 válido:", PATRONES_REGEX.telefono.test("7012"));
+console.log("ana@correo.bo válido:", PATRONES_REGEX.correo.test("ana@correo.bo"));
 
 // ── 7. LA VALIDACIÓN DE VERDAD NO ESTÁ AQUÍ ─────────────────────────────
+window.actualizar = actualizar;
+document.querySelector('a[href="#Catalogo"]')?.addEventListener("click", () => {
+  if (typeof actualizar === "function") actualizar();
+});

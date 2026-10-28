@@ -11,6 +11,7 @@
 
 <body>
 
+  <!-- ── HEADER ──────────────────────────────────────────────────────── -->
   <header>
     <div class="branding">
       <h1>Distribuidor KateRey</h1>
@@ -21,6 +22,10 @@
         <li><a href="#Catalogo">Catálogo</a></li>
         <li><a href="#Horarios">Horarios</a></li>
         <li><a href="#Ubicacion">Ubicación</a></li>
+        
+        <!-- BOTONES NUEVOS -->
+        <li><button id="tema-toggle" class="btn-nav">🌙 Modo Oscuro</button></li>
+        <li><button id="cargar-remoto" class="btn-nav">🔄 Cargar Productos Remotos</button></li>
         <li class="carrito-indicador">
           <a href="#resumen-carrito">Carrito (<span id="total-carrito">0</span>)</a>
         </li>
@@ -28,8 +33,10 @@
     </nav>
   </header>
 
+  <!-- ── MAIN ────────────────────────────────────────────────────────── -->
   <main>
-    <!-- Contenedor donde se pintan las tarjetas dinámicamente -->
+
+    <!-- ── CATÁLOGO ──────────────────────────────────────────────────── -->
     <section id="Catalogo">
       <h2>Nuestro Catálogo</h2>
 
@@ -49,14 +56,13 @@
           </button>
         </div>
 
-
-
         <p id="resultado" aria-live="polite"></p>
       </div>
 
       <div id="lista-productos"></div>
     </section>
-    <!-- Resumen del carrito -->
+
+    <!-- ── RESUMEN DEL CARRITO ───────────────────────────────────────── -->
     <section id="resumen-carrito" style="display: none;">
       <h2>Resumen de tu Pedido</h2>
       <div id="lista-items-carrito" class="contenedor-items"></div>
@@ -68,7 +74,7 @@
       </div>
     </section>
 
-    <!-- ── FORMULARIO DE PEDIDO ─────────────────────────────────────────── -->
+    <!-- ── FORMULARIO DE PEDIDO ──────────────────────────────────────── -->
     <section id="pedido">
       <h2>Hacer un pedido</h2>
 
@@ -142,19 +148,25 @@
       </div>
     </section>
 
+    <!-- ── HORARIOS ──────────────────────────────────────────────────── -->
     <section id="Horarios">
       <h2>Horarios de atención: 7:00 - 18:00 todos los días</h2>
     </section>
 
+    <!-- ── UBICACIÓN (CON BOTÓN DE GEOLOCALIZACIÓN) ──────────────────── -->
     <section id="Ubicacion">
       <h2>¿Dónde estamos?</h2>
       <address>
         Av. Principal s/n<br>
         Teléfono: 69389264
       </address>
+      <button id="ubicarme" class="btn-pedido" style="max-width: 250px;">UBICARME</button>
+      <p id="estado-ubicacion"></p>
     </section>
+
   </main>
 
+  <!-- ── ASIDE Y FOOTER ────────────────────────────────────────────── -->
   <aside>
     <article>
       <h3>¿Sabías?</h3>
@@ -166,18 +178,28 @@
     <p>&copy; 2026 Distribuidor KateRey</p>
   </footer>
 
-  <!-- Librería jsPDF para generación de PDFs -->
+  <!-- ── SCRIPTS (ORDEN CORRECTO) ────────────────────────────────────── -->
+  <!-- 1. Librerías externas -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-  <!-- libreria jquery -->
-  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-  <!-- Orden importante -->
+  <script src="jquery-3.7.1.min.js"></script>
+
+  <!-- 2. Datos y funciones base -->
   <script src="datos.js"></script>
   <script src="recivo.js"></script>
   <script src="funciones.js"></script>
   <script src="render.js"></script>
+
+  <!-- 3. Módulos nuevos -->
+  <script src="notificaciones.js"></script>
+  <script src="validaciones.js"></script>
+  <script src="preferencias.js"></script>
+  <script src="remoto.js"></script>
+
+  <!-- 4. Lógica principal -->
   <script src="app.js"></script>
   <script src="eventos.js"></script>
-  <script src="jquery-comparado.js"></script>
+  <script src="jquery-panel.js"></script>
+
 </body>
 
 </html>

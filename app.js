@@ -12,13 +12,11 @@ function actualizarUICarrito() {
 
   const { total, count } = obtenerTotalCarrito();
 
-  montoTotal.textContent = `Bs ${total.toFixed(2)}`;
-  totalCarrito.textContent = count;
+  if (montoTotal)   montoTotal.textContent   = `Bs ${total.toFixed(2)}`;
+  if (totalCarrito) totalCarrito.textContent  = count;
 
-  if (count === 0) {
-    sectionCarrito.style.display = 'none';
-  } else {
-    sectionCarrito.style.display = 'block';
+  if (sectionCarrito) {
+    sectionCarrito.style.display = count === 0 ? 'none' : 'block';
   }
 }
 
@@ -60,11 +58,8 @@ if (btnWhatsApp) {
 
 // ── INICIO ──────────────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
-  // 1. Pintamos los productos
-  renderizarProductos();
-
-  // 2. Activamos los botones de agregar
-  activarBotonesAgregar();
+  // actualizarUICarrito inicializa el estado del carrito al cargar
+  actualizarUICarrito();
 });
 // ── FORMULARIO DE PEDIDO ────────────────────────────────────────────────
 // ── BOTÓN "Continuar" del carrito ────────────────────────────────────────

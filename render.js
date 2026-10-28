@@ -46,5 +46,6 @@ function render(lista) {
   }
 }
 
-// ── 4. EXPONER PARA USAR DESDE APP.JS ───────────────────────────────────
+// ── 4. EXPONER PARA USAR DESDE OTROS SCRIPTS ────────────────────────────
 window.renderizarProductos = () => render(productos);
+window.render = render;
