@@ -61,13 +61,88 @@ p {
 /* ── 4. HEADER Y NAVEGACIÓN ───────────────────────────────────────────── */
 header {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
   gap: var(--espacio);
   padding: var(--espacio-lg) var(--espacio);
   border-bottom: 3px solid var(--color-principal);
   margin-bottom: var(--espacio-lg);
+}
+
+.header-top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  gap: 1rem;
+}
+
+/* ── SWITCH DESLIZANTE MODO OSCURO EN LA ESQUINA SUPERIOR DERECHA ─────── */
+.contenedor-tema-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  background: var(--color-superficie);
+  padding: 0.35rem 0.65rem;
+  border: 1px solid var(--borde);
+  border-radius: 999px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+  user-select: none;
+}
+
+.tema-icon-label {
+  font-size: 0.95rem;
+  line-height: 1;
+}
+
+.switch-tema {
+  position: relative;
+  width: 58px;
+  height: 30px;
+  border-radius: 999px;
+  background: #cbd5e1;
+  border: 2px solid var(--borde);
+  cursor: pointer;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.3s ease;
+  outline: none;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.switch-tema:hover {
+  filter: brightness(1.05);
+}
+
+.switch-thumb {
+  position: absolute;
+  left: 3px;
+  top: 2px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  line-height: 1;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25);
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.3s ease;
+}
+
+/* Estado activo (Modo Oscuro): el switch se mueve con deslizamiento animado */
+.switch-tema.activo,
+body.tema-oscuro .switch-tema {
+  background: #0284c7;
+  border-color: #0369a1;
+}
+
+.switch-tema.activo .switch-thumb,
+body.tema-oscuro .switch-tema .switch-thumb {
+  transform: translateX(27px);
+  background: #0f172a;
+  color: #f8fafc;
 }
 
 nav ul {
@@ -76,28 +151,91 @@ nav ul {
   margin: 0;
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
+  align-items: center;
+  gap: 0.6rem;
 }
 
-nav a {
-  display: inline-block;
+nav li {
+  display: flex;
+  align-items: center;
+}
+
+/* ── Estilo base unificado: Mismo tamaño y diseño para los 7 botones del menú principal ── */
+nav a,
+nav button,
+.btn-nav,
+.carrito-indicador a {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  min-height: 2.5rem;
   padding: 0.5rem 1rem;
   border-radius: var(--radio);
+  font-family: inherit;
+  font-size: 0.95rem;
   font-weight: 600;
+  line-height: 1.2;
   color: var(--color-texto);
   text-decoration: none;
-  transition: all 0.2s ease;
-}
-
-nav a:hover {
-  background-color: var(--color-principal);
-  color: #fff;
-  transform: translateY(-2px);
-}
-
-.carrito-indicador a {
-  background-color: var(--color-fondo);
+  background-color: var(--color-superficie);
   border: 1px solid var(--borde);
+  cursor: pointer;
+  white-space: nowrap;
+  user-select: none;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Efecto Hover uniforme para todos los botones del menú */
+nav a:hover,
+nav button:hover,
+.btn-nav:hover,
+.carrito-indicador a:hover {
+  background-color: var(--color-principal);
+  border-color: var(--color-principal);
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.16);
+}
+
+/* Efecto de pulsación activa */
+nav a:active,
+nav button:active,
+.btn-nav:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+}
+
+/* Accesibilidad con teclado */
+nav a:focus-visible,
+nav button:focus-visible,
+.btn-nav:focus-visible {
+  outline: 2px solid var(--color-acento);
+  outline-offset: 2px;
+}
+
+/* Badge contador del Carrito */
+#total-carrito {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.35rem;
+  height: 1.35rem;
+  padding: 0 0.4rem;
+  border-radius: 999px;
+  background-color: var(--color-principal);
+  color: #ffffff;
+  font-size: 0.8rem;
+  font-weight: 700;
+  line-height: 1;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.carrito-indicador a:hover #total-carrito {
+  background-color: #ffffff;
+  color: var(--color-principal);
 }
 
 /* ── 5. CATÁLOGO (GRID) ───────────────────────────────────────────────── */
@@ -332,6 +470,10 @@ input[type="checkbox"]+label {
   transform: translateY(-1px);
 }
 
+.btn-ubicarme {
+  max-width: 250px;
+}
+
 .btn-seguir-comprando {
   display: block;
   margin: 0.75rem auto 0 auto;
@@ -343,34 +485,330 @@ input[type="checkbox"]+label {
   text-decoration: underline;
 }
 
-/* ── 9. FOOTER Y ASIDE ────────────────────────────────────────────────── */
-aside {
-  margin-top: var(--espacio-lg);
+/* ── 9. SECCIONES HORARIOS, UBICACIÓN, ¿SABÍAS QUE? Y FOOTER ──────────── */
+
+/* Estilos comunes de sección destacada */
+.seccion-destacada {
+  margin-top: 2.5rem;
+  background: var(--color-superficie);
+  border: 1px solid var(--borde);
+  border-radius: 10px;
+  padding: 1.75rem;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05);
 }
 
-footer {
-  margin-top: var(--espacio-lg);
-  padding: var(--espacio-lg) var(--espacio);
+.etiqueta-seccion {
+  display: inline-block;
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--color-principal);
+  background: rgba(2, 132, 199, 0.1);
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+  margin-bottom: 0.75rem;
+}
+
+/* ── HORARIOS DE ATENCIÓN Y DESPACHO ── */
+.seccion-horarios {
+  border-left: 6px solid #0284c7;
+}
+
+.horarios-card {
+  display: flex;
+  gap: 1.5rem;
+  align-items: flex-start;
+}
+
+.horarios-icono {
+  font-size: 3rem;
+  line-height: 1;
+  background: rgba(2, 132, 199, 0.1);
+  padding: 1rem;
+  border-radius: 12px;
+}
+
+.horarios-info {
+  flex: 1;
+}
+
+.horarios-info h2 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  font-size: 1.5rem;
+}
+
+.horarios-destacado {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+
+.badge-abierto {
+  background: #16a34a;
+  color: #ffffff;
+  padding: 0.3rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.horario-texto-principal {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--color-principal);
+}
+
+.horarios-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
   border-top: 1px solid var(--borde);
+  padding-top: 1rem;
+}
+
+.horario-col strong {
+  display: block;
+  font-size: 0.95rem;
+  color: var(--color-texto);
+  margin-bottom: 0.25rem;
+}
+
+.horario-col p {
+  margin: 0;
+  font-size: 0.88rem;
+  color: var(--color-suave);
+  line-height: 1.4;
+}
+
+/* ── UBICACIÓN CON IMAGEN Y GEOLOCALIZACIÓN ── */
+.seccion-ubicacion {
+  border-left: 6px solid #2e7d32;
+}
+
+.ubicacion-layout {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 2rem;
+  align-items: center;
+}
+
+.ubicacion-datos h2 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  font-size: 1.6rem;
+}
+
+.ubicacion-subtitulo {
+  color: var(--color-suave);
+  margin-bottom: 1.25rem;
+  font-size: 0.95rem;
+}
+
+.tarjetas-contacto-ubicacion {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  margin-bottom: 1.5rem;
+}
+
+.item-contacto {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  background: var(--color-fondo);
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  border: 1px solid var(--borde);
+}
+
+.icono-contacto {
+  font-size: 1.4rem;
+  line-height: 1;
+}
+
+.item-contacto strong {
+  display: block;
+  font-size: 0.92rem;
+  margin-bottom: 0.15rem;
+}
+
+.item-contacto address,
+.item-contacto span {
+  font-style: normal;
+  font-size: 0.88rem;
   color: var(--color-suave);
 }
 
-/* ── 10. RESPONSIVE ───────────────────────────────────────────────────── */
-@media (min-width: 40rem) {
-  h1 {
-    font-size: 2.5rem;
-  }
+.bloque-calculo-distancia {
+  margin-top: 1rem;
 }
 
-@media (min-width: 60rem) {
-  body {
-    padding: 0 var(--espacio-lg);
-  }
+.estado-ubicacion {
+  margin-top: 0.75rem;
+  font-weight: 600;
+  font-size: 0.92rem;
+  color: var(--color-principal);
 }
 
-/* ── El bug del día: de dónde sale el scroll horizontal ────────────────── */
+.marco-imagen-ubicacion {
+  position: relative;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+  border: 2px solid var(--borde);
+}
 
-/* ── Escalón de tablet ─────────────────────────────────────────────────── */
+.img-ubicacion {
+  width: 100%;
+  height: 100%;
+  max-height: 340px;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.marco-imagen-ubicacion:hover .img-ubicacion {
+  transform: scale(1.02);
+}
+
+.badge-mapa-flotante {
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  background: rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(6px);
+  color: #ffffff;
+  padding: 0.4rem 0.85rem;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* ── ASIDE: ¿SABÍAS QUE? CON IMAGEN ── */
+.seccion-sabias {
+  margin-top: 2.5rem;
+}
+
+.sabias-card {
+  display: grid;
+  grid-template-columns: 1fr 1.25fr;
+  gap: 2rem;
+  align-items: center;
+  background: var(--color-superficie);
+  border: 1px solid var(--borde);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+}
+
+.sabias-imagen-col {
+  position: relative;
+  height: 100%;
+  min-height: 240px;
+}
+
+.img-sabias {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.badge-garantia {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  background: #16a34a;
+  color: #ffffff;
+  padding: 0.35rem 0.8rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+}
+
+.sabias-contenido-col {
+  padding: 2rem 2rem 2rem 0;
+}
+
+.sabias-contenido-col h3 {
+  margin-top: 0;
+  margin-bottom: 0.75rem;
+  font-size: 1.5rem;
+}
+
+.sabias-contenido-col p {
+  color: var(--color-texto);
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.lista-ventajas-fabrica {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.lista-ventajas-fabrica li {
+  font-size: 0.92rem;
+  color: var(--color-texto);
+  display: flex;
+  align-items: baseline;
+  gap: 0.4rem;
+}
+
+/* ── FOOTER MULTICOLUMNA MODERNO ── */
+footer {
+  margin-top: 3.5rem;
+  background: var(--color-superficie);
+  border-top: 3px solid var(--color-principal);
+  padding: 2.5rem var(--espacio) 1.5rem;
+  color: var(--color-texto);
+}
+
+.footer-contenido {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 2rem;
+  max-width: 78rem;
+  margin: 0 auto;
+}
+
+.footer-col h4 {
+  margin-top: 0;
+  margin-bottom: 0.85rem;
+  font-size: 1.15rem;
+  color: var(--color-principal);
+}
+
+.footer-col p {
+  margin: 0;
+  color: var(--color-suave);
+  font-size: 0.92rem;
+  line-height: 1.6;
+}
+
+.footer-bottom {
+  margin-top: 2rem;
+  border-top: 1px solid var(--borde);
+  padding-top: 1.25rem;
+  text-align: center;
+  font-size: 0.88rem;
+  color: var(--color-suave);
+}
+
+/* ── 10. RESPONSIVE Y ADAPTACIÓN MÓVIL ────────────────────────────────── */
+
+/* ── Pantallas de escritorio y tablet (min-width: 40rem / 640px) ───────── */
 @media (min-width: 40rem) {
   h1 {
     font-size: 2.5rem;
@@ -381,7 +819,234 @@ footer {
   }
 
   nav ul {
-    gap: var(--espacio-lg);
+    gap: 0.65rem;
+  }
+}
+
+@media (min-width: 60rem) {
+  body {
+    padding: 0 var(--espacio-lg);
+  }
+}
+
+/* ── Optimización móvil (pantallas de hasta 768px / 48rem) ──────────────── */
+@media (max-width: 48rem) {
+  :root {
+    --espacio-lg: 1.25rem;
+  }
+
+  body {
+    padding: 0 0.75rem;
+  }
+
+  /* Header y marca más compactos y equilibrados en móvil */
+  header {
+    padding: 1rem 0;
+    gap: 0.85rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .header-top-bar {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0.6rem;
+  }
+
+  .contenedor-tema-switch {
+    margin-top: 0.2rem;
+  }
+
+  header h1 {
+    font-size: 1.65rem;
+    margin-bottom: 0.2rem;
+  }
+
+  header .branding p {
+    font-size: 0.9rem;
+    margin-inline: auto;
+  }
+
+  /* Secciones Ubicación, Sabías y Horarios adaptadas a 1 columna en móvil */
+  .ubicacion-layout,
+  .sabias-card {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  .sabias-contenido-col {
+    padding: 0 1.25rem 1.5rem;
+  }
+
+  .horarios-card {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .horarios-icono {
+    align-self: flex-start;
+  }
+
+  /* Menú de navegación en móviles: botones tipo píldora compactos y centrados */
+  nav ul {
+    justify-content: center;
+    gap: 0.4rem;
+  }
+
+  nav a,
+  nav button,
+  .btn-nav,
+  .carrito-indicador a {
+    font-size: 0.85rem;
+    padding: 0.42rem 0.75rem;
+    min-height: 2.2rem;
+    gap: 0.35rem;
+    border-radius: 6px;
+  }
+
+  /* Buscador adaptado a pantalla móvil sin desbordar */
+  .buscador-caja {
+    max-width: 100%;
+  }
+
+  #buscador {
+    font-size: 0.9rem;
+    padding: 0.6rem 0.75rem;
+  }
+
+  #btn-buscar {
+    padding: 0.6rem 0.9rem;
+    font-size: 0.9rem;
+  }
+
+  /* Catálogo y tarjetas en móvil */
+  #lista-productos {
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 15rem), 1fr));
+    gap: 0.85rem;
+    justify-items: center;
+  }
+
+  .tarjeta {
+    max-width: 100%;
+  }
+
+  .tarjeta img {
+    height: 11rem;
+  }
+
+  .info-producto {
+    padding: 0.85rem;
+  }
+
+  /* Resumen del Carrito en móvil */
+  #resumen-carrito {
+    padding: 1.25rem 0.85rem;
+    margin-top: 1.25rem;
+  }
+
+  .item-carrito {
+    gap: 0.75rem;
+    padding: 0.75rem 0;
+  }
+
+  .item-carrito img {
+    width: 65px;
+    height: 65px;
+  }
+
+  /* Formulario de pedido adaptado a dedos */
+  #pedido {
+    margin-top: 1.25rem;
+  }
+
+  fieldset {
+    padding: 1rem 0.85rem;
+  }
+
+  .btn-pedido {
+    max-width: 100%;
+    padding: 0.8rem;
+    font-size: 1rem;
+  }
+
+  .btn-ubicarme {
+    max-width: 100%;
+  }
+
+  /* Acciones del recibo: apiladas verticalmente para pulsación táctil óptima */
+  .acciones-recibo {
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .acciones-recibo button,
+  .acciones-recibo a {
+    width: 100%;
+    min-height: 44px;
+  }
+
+  /* Tablero Kanban y gráfico en móviles */
+  .seccion-tablero {
+    padding: 1rem 0.85rem;
+    margin-top: 1.25rem;
+  }
+
+  .contenedor-tablero {
+    grid-template-columns: 1fr;
+    gap: 0.85rem;
+  }
+
+  .columna {
+    min-height: auto;
+    padding: 0.85rem;
+  }
+
+  .ficha {
+    padding: 0.65rem 0.8rem;
+    font-size: 0.88rem;
+  }
+}
+
+/* ── Móviles pequeños (pantallas de 360px o menos) ─────────────────────── */
+@media (max-width: 25rem) {
+  header h1 {
+    font-size: 1.4rem;
+  }
+
+  nav a,
+  nav button,
+  .btn-nav,
+  .carrito-indicador a {
+    font-size: 0.8rem;
+    padding: 0.35rem 0.6rem;
+  }
+}
+
+/* ── Animaciones y respuesta táctil fluida para móviles ─────────────────── */
+@media (hover: none) {
+  .tarjeta:hover {
+    transform: none;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+  }
+
+  .btn-nav:hover,
+  nav a:hover,
+  .btn-pedido:hover,
+  .btn-agregar:hover {
+    transform: none;
+  }
+
+  /* Efecto de pulsación táctil tipo app nativa */
+  .btn-nav:active,
+  nav a:active,
+  .btn-pedido:active,
+  .btn-agregar:active,
+  .ficha:active,
+  .btn-descargar-pdf:active,
+  .btn-compartir-pdf:active,
+  .btn-abrir-wa:active {
+    transform: scale(0.97);
+    opacity: 0.92;
   }
 }
 
@@ -674,25 +1339,7 @@ footer {
 }
 
 /* ── 13. BOTONES DEL NAV (Modo Oscuro / Cargar Remotos) ─────────────────── */
-.btn-nav {
-  background: transparent;
-  border: 1px solid var(--borde);
-  border-radius: var(--radio);
-  padding: 0.4rem 0.9rem;
-  font-family: inherit;
-  font-size: 0.9rem;
-  font-weight: 500;
-  color: var(--color-texto);
-  cursor: pointer;
-  transition: all 0.2s ease;
-  white-space: nowrap;
-}
-
-.btn-nav:hover {
-  background: var(--color-principal);
-  color: #fff;
-  border-color: var(--color-principal);
-}
+/* Estilos consolidados e igualados en la sección 4 (HEADER Y NAVEGACIÓN) */
 
 /* ── 14. MODO OSCURO ─────────────────────────────────────────────────────── */
 body.tema-oscuro {
@@ -725,24 +1372,610 @@ body.tema-oscuro #resumen-carrito {
   background: #1a1d27;
 }
 
-body.tema-oscuro .btn-nav {
-  color: #e2e8f0;
+body.tema-oscuro nav a,
+body.tema-oscuro nav button,
+body.tema-oscuro .btn-nav,
+body.tema-oscuro .carrito-indicador a {
+  background-color: var(--color-superficie);
+  border-color: var(--borde);
+  color: var(--color-texto);
 }
+
+body.tema-oscuro nav a:hover,
+body.tema-oscuro nav button:hover,
+body.tema-oscuro .btn-nav:hover,
+body.tema-oscuro .carrito-indicador a:hover {
+  background-color: var(--color-principal);
+  border-color: var(--color-principal);
+  color: #0f1117;
+}
+
+body.tema-oscuro #total-carrito {
+  background-color: var(--color-principal);
+  color: #0f1117;
+}
+
+body.tema-oscuro .carrito-indicador a:hover #total-carrito {
+  background-color: #0f1117;
+  color: var(--color-acento);
+}
+
+/* ── ARREGLO: Botones + y - del carrito en modo oscuro ── */
+body.tema-oscuro .controles-cantidad button {
+  background: #2d3748;
+  color: #e2e8f0;
+  border-color: #4a5568;
+}
+
+body.tema-oscuro .controles-cantidad button:hover {
+  background: var(--color-principal);
+  color: var(--color-fondo);
+}
+
 #Catalogo,
+#Tablero,
 #Horarios,
 #Ubicacion,
 #pedido,
 #resumen-carrito {
   scroll-margin-top: 1rem;
 }
-/* ── ARREGLO: Botones + y - del carrito en modo oscuro ── */
-body.tema-oscuro .controles-cantidad button {
-  background: #2d3748;      /* Un gris oscuro un poco más claro que el fondo */
-  color: #e2e8f0;           /* Texto blanco/grisáceo para que se lea */
-  border-color: #4a5568;    /* Borde más visible */
+
+/* ── 15. SECCIÓN TABLERO KANBAN Y CANVAS ──────────────────────────────── */
+.seccion-tablero {
+  background: var(--color-superficie);
+  border: 1px solid var(--borde);
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-top: 2rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
-body.tema-oscuro .controles-cantidad button:hover {
-  background: var(--color-principal); /* El azul claro de tu tema oscuro */
-  color: var(--color-fondo);
+.tablero-subtitulo {
+  color: var(--color-suave);
+  margin-bottom: 1.25rem;
+  font-size: 0.95rem;
+}
+
+.contenedor-tablero {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.columna {
+  background: var(--color-fondo);
+  border: 2px solid transparent;
+  border-radius: 8px;
+  padding: 1.25rem;
+  min-height: 280px;
+  display: flex;
+  flex-direction: column;
+  transition: border-color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.columna.encima {
+  border-color: var(--color-principal);
+  background-color: rgba(26, 74, 122, 0.08);
+  box-shadow: 0 0 12px rgba(26, 74, 122, 0.2);
+}
+
+.columna-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  border-bottom: 1px solid var(--borde);
+  padding-bottom: 0.6rem;
+  margin-bottom: 0.8rem;
+}
+
+.columna-header h3 {
+  font-size: 1.05rem;
+  margin: 0;
+  color: var(--color-principal);
+}
+
+.columna-header .total {
+  font-size: 0.85rem;
+  color: var(--color-suave);
+  font-weight: 600;
+}
+
+.lista-columna {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  flex-grow: 1;
+  min-height: 120px;
+}
+
+.ficha {
+  background: var(--color-superficie);
+  color: var(--color-texto);
+  border: 1px solid var(--borde);
+  border-left: 4px solid var(--color-principal);
+  border-radius: 8px;
+  padding: 0.75rem 0.9rem;
+  font-size: 0.92rem;
+  font-weight: 500;
+  cursor: grab;
+  user-select: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease, background-color 0.15s ease;
+}
+
+.ficha-stock {
+  border-left-color: #0284c7;
+}
+
+.ficha-pedido {
+  border-left-color: #2e7d32;
+  background: #f8fafc;
+}
+
+.ficha-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  flex: 1;
+  min-width: 0;
+}
+
+.ficha-info strong {
+  font-size: 0.95rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ficha-cant {
+  font-size: 0.82rem;
+  color: var(--color-suave);
+  font-weight: 500;
+}
+
+/* Botones + y - dentro de las fichas */
+.btn-ficha-accion {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  min-width: 32px;
+  border-radius: 6px;
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1;
+  border: none;
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.15s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+}
+
+.btn-sumar {
+  background-color: #2e7d32;
+  color: #ffffff;
+}
+
+.btn-sumar:hover {
+  background-color: #1b5e20;
+  transform: scale(1.1);
+}
+
+.btn-restar {
+  background-color: #d32f2f;
+  color: #ffffff;
+}
+
+.btn-restar:hover {
+  background-color: #b71c1c;
+  transform: scale(1.1);
+}
+
+.btn-ficha-accion:active {
+  transform: scale(0.92);
+}
+
+/* Ficha vacía cuando el pedido no tiene materiales */
+.ficha-vacia {
+  list-style: none;
+  text-align: center;
+  padding: 1.8rem 1rem;
+  color: var(--color-suave);
+  font-size: 0.92rem;
+  border: 2px dashed var(--borde);
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.02);
+  line-height: 1.4;
+}
+
+/* Botón grande para confirmar y pedir desde el tablero */
+.btn-tablero-pedido {
+  margin-top: 1.25rem;
+  width: 100%;
+  max-width: 100%;
+  padding: 0.85rem 1rem;
+  font-size: 0.98rem;
+  font-weight: 700;
+  background: #0284c7;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(2, 132, 199, 0.25);
+  transition: all 0.2s ease;
+}
+
+.btn-tablero-pedido:hover {
+  background: #0369a1;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(2, 132, 199, 0.35);
+}
+
+.btn-tablero-pedido:active {
+  transform: translateY(0);
+}
+
+.ficha:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.ficha:active {
+  cursor: grabbing;
+}
+
+.ficha.arrastrando {
+  opacity: 0.45;
+  transform: scale(0.96);
+  border-style: dashed;
+}
+
+.grafico-contenedor {
+  text-align: center;
+  padding: 1.5rem 1rem;
+  background: var(--color-fondo);
+  border: 1px solid var(--borde);
+  border-radius: 8px;
+}
+
+.grafico-contenedor h3 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-size: 1.15rem;
+}
+
+#grafico {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  border-radius: 6px;
+  background: #ffffff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+/* Modo oscuro para Tablero */
+body.tema-oscuro .seccion-tablero {
+  background: #1a1d27;
+  border-color: #2d3748;
+}
+
+body.tema-oscuro .columna {
+  background: #12141c;
+  border-color: #2d3748;
+}
+
+body.tema-oscuro .columna.encima {
+  border-color: var(--color-acento);
+  background-color: rgba(125, 211, 252, 0.08);
+}
+
+body.tema-oscuro .columna-header {
+  border-bottom-color: #2d3748;
+}
+
+body.tema-oscuro .columna-header h3 {
+  color: var(--color-acento);
+}
+
+body.tema-oscuro .ficha {
+  background: #1e2230;
+  border-color: #2d3748;
+  color: #e2e8f0;
+}
+
+body.tema-oscuro .ficha-pedido {
+  background: #232938;
+}
+
+body.tema-oscuro .ficha-vacia {
+  border-color: #2d3748;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+body.tema-oscuro .ficha:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+}
+
+body.tema-oscuro .grafico-contenedor {
+  background: #12141c;
+  border-color: #2d3748;
+}
+
+body.tema-oscuro #grafico {
+  background: #161a23;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Modo oscuro para nuevas secciones */
+body.tema-oscuro .seccion-destacada,
+body.tema-oscuro .sabias-card,
+body.tema-oscuro footer {
+  background: #1a1d27;
+  border-color: #2d3748;
+}
+
+body.tema-oscuro .item-contacto {
+  background: #12141c;
+  border-color: #2d3748;
+}
+
+body.tema-oscuro .etiqueta-seccion {
+  background: rgba(125, 211, 252, 0.12);
+  color: var(--color-acento);
+}
+
+body.tema-oscuro .contenedor-tema-switch {
+  background: #1e2230;
+  border-color: #2d3748;
+}
+
+body.tema-oscuro .badge-abierto {
+  background: #15803d;
+}
+
+/* ═════════════════════════════════════════════════════════════════════════
+   ACCESIBILIDAD DEL TABLERO (Día 14)
+   Respeta a quien pidió menos movimiento en su sistema. Es una línea y
+   evita que una animación se convierta en un problema de accesibilidad.
+   ═════════════════════════════════════════════════════════════════════════ */
+@media (prefers-reduced-motion: reduce) {
+  .ficha,
+  .columna {
+    transition: none;
+  }
+}
+/* ── 16. ESTILOS PARA EL TABLERO DE CARGA (STOCK / PEDIDO) ───────────── */
+.tablero-dos-columnas {
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+.columna-stock {
+  border-top: 4px solid var(--color-acento);
+}
+
+.columna-pedido {
+  border-top: 4px solid #2e7d32;
+}
+
+/* Estilos para los botones (+) y (-) dentro de las fichas */
+.btn-ficha-accion {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: none;
+  font-weight: bold;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: transform 0.1s, background 0.2s;
+  color: white;
+}
+
+.btn-sumar {
+  background-color: #2e7d32;
+}
+.btn-sumar:hover { background-color: #1b5e20; transform: scale(1.1); }
+
+.btn-restar {
+  background-color: #d32f2f;
+}
+.btn-restar:hover { background-color: #b71c1c; transform: scale(1.1); }
+
+/* Ficha vacía */
+.ficha-vacia {
+  list-style: none;
+  text-align: center;
+  padding: 2rem 1rem;
+  color: var(--color-suave);
+  border: 2px dashed var(--borde);
+  border-radius: var(--radio);
+  background: var(--color-fondo);
+}
+
+/* Botón de confirmar pedido del tablero */
+.btn-tablero-pedido {
+  background-color: #0284c7;
+  margin-top: 1rem;
+}
+.btn-tablero-pedido:hover {
+  background-color: #0369a1;
+}
+/* ── 21. ESTILOS DE LA TABLA DEL CARRITO ──────────────────────────────── */
+.tabla-carrito-wrapper {
+  overflow-x: auto; /* Si la tabla es muy ancha en móvil, permite scroll */
+  margin-top: 1rem;
+}
+
+.tabla-carrito {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 500px;
+}
+
+.tabla-carrito thead th {
+  background: var(--color-principal);
+  color: #fff;
+  padding: 0.75rem 0.5rem;
+  text-align: left;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.tabla-carrito tbody td {
+  padding: 0.75rem 0.5rem;
+  border-bottom: 1px solid var(--borde);
+  vertical-align: middle;
+}
+
+/* Celda del producto con imagen */
+.producto-celda {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.img-tabla {
+  width: 45px;
+  height: 45px;
+  object-fit: cover;
+  border-radius: 6px;
+  border: 1px solid var(--borde);
+}
+
+/* Controles de cantidad dentro de la tabla */
+.controles-tabla {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.controles-tabla button {
+  width: 26px;
+  height: 26px;
+  border: 1px solid var(--borde);
+  background: var(--color-superficie);
+  color: var(--color-texto);
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  line-height: 1;
+}
+
+.controles-tabla button:hover {
+  background: var(--color-principal);
+  color: #fff;
+}
+
+.subtotal-tabla {
+  font-weight: 600;
+  color: var(--color-acento);
+  white-space: nowrap;
+}
+
+/* Botón quitar */
+.btn-quitar {
+  background: transparent;
+  border: 1px solid #fca5a5;
+  color: #dc2626;
+  border-radius: 4px;
+  padding: 0.3rem 0.5rem;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+  line-height: 1;
+}
+
+.btn-quitar:hover {
+  background: #dc2626;
+  color: #fff;
+  border-color: #dc2626;
+}
+
+/* Pie de tabla (resumen final) */
+.tabla-carrito tfoot td {
+  padding: 0.75rem 0.5rem;
+  border-bottom: none;
+}
+
+.tabla-carrito tfoot .resumen-texto {
+  text-align: right;
+  font-weight: 600;
+  color: var(--color-texto);
+}
+
+.tabla-carrito tfoot .resumen-valor {
+  text-align: left;
+  font-weight: 700;
+  color: var(--color-texto);
+}
+
+.fila-total td {
+  border-top: 2px solid var(--borde);
+  font-size: 1.15rem;
+}
+
+.resumen-texto-total {
+  color: var(--color-principal);
+}
+
+.resumen-valor-total {
+  color: var(--color-acento);
+  font-size: 1.3rem;
+  font-weight: 800;
+}
+
+/* Modo oscuro para la tabla */
+body.tema-oscuro .tabla-carrito thead th {
+  background: var(--color-principal);
+  color: #0f1117;
+}
+
+body.tema-oscuro .tabla-carrito tbody td {
+  border-bottom-color: #2d3748;
+}
+
+body.tema-oscuro .controles-tabla button {
+  background: #2d3748;
+  color: #e2e8f0;
+  border-color: #4a5568;
+}
+
+body.tema-oscuro .controles-tabla button:hover {
+  background: var(--color-principal);
+  color: #0f1117;
+}
+
+body.tema-oscuro .btn-quitar {
+  border-color: #7f1d1d;
+  color: #f87171;
+}
+
+body.tema-oscuro .btn-quitar:hover {
+  background: #dc2626;
+  color: #fff;
+}
+
+body.tema-oscuro .fila-total td {
+  border-top-color: #4a5568;
+}
+
+body.tema-oscuro .resumen-texto-total {
+  color: var(--color-acento);
+}
+
+body.tema-oscuro .resumen-valor-total {
+  color: #7dd3fc;
 }

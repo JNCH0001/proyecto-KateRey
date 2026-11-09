@@ -39,9 +39,20 @@ function aplicarPreferencias() {
 
   const boton = document.querySelector("#tema-toggle");
   if (boton) {
-    boton.setAttribute("aria-pressed", String(preferencias.tema === "oscuro"));
-    boton.textContent = preferencias.tema === "oscuro" ? "☀️ Modo Claro" : "🌙 Modo Oscuro";
+    const esOscuro = preferencias.tema === "oscuro";
+    boton.setAttribute("aria-pressed", String(esOscuro));
+    boton.setAttribute("aria-checked", String(esOscuro));
+    boton.classList.toggle("activo", esOscuro);
+    const thumb = boton.querySelector(".switch-thumb");
+    if (thumb) {
+      thumb.textContent = esOscuro ? "🌙" : "☀️";
+    } else {
+      boton.textContent = esOscuro ? "☀️ Modo Claro" : "🌙 Modo Oscuro";
+    }
   }
+
+  // Notificar cambio para actualizar gráficos como canvas
+  window.dispatchEvent(new CustomEvent("tema-cambiado", { detail: { tema: preferencias.tema } }));
 }
 
 // Exponer globalmente

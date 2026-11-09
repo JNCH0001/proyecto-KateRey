@@ -153,3 +153,40 @@ if (formulario) {
     }
   });
 }
+function activarBotonesAgregar() {
+  const btnsAgregar = document.querySelectorAll('.btn-agregar');
+
+  btnsAgregar.forEach(btn => {
+    // Evitar duplicar el evento si ya fue activado
+    if (btn.dataset.escuchando === "true") return;
+    btn.dataset.escuchando = "true";
+
+    btn.addEventListener('click', (e) => {
+      const articulo = e.target.closest('article');
+      if (!articulo) return;
+
+      const id     = articulo.dataset.id;
+      const nombre = articulo.dataset.nombre;
+      const precio = parseFloat(articulo.dataset.precio);
+      const img    = articulo.dataset.img;
+
+      agregarAlCarrito(id, nombre, precio, img);
+
+      const textoOriginal = btn.textContent;
+      btn.textContent = '✓ Agregado';
+      btn.classList.add('agregado');
+
+      setTimeout(() => {
+        btn.textContent = textoOriginal;
+        btn.classList.remove('agregado');
+      }, 1500);
+
+      actualizarUICarrito();
+
+      // Desplazamiento suave al carrito (solo si no es dispositivo táctil)
+      if (window.matchMedia('(hover: hover)').matches) {
+        sectionCarrito.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+    });
+  });
+}

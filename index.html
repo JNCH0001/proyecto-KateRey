@@ -13,21 +13,32 @@
 
   <!-- ── HEADER ──────────────────────────────────────────────────────── -->
   <header>
-    <div class="branding">
-      <h1>Distribuidor KateRey</h1>
-      <p>Material de construcción garantizado</p>
+    <div class="header-top-bar">
+      <div class="branding">
+        <h1>Distribuidor KateRey</h1>
+        <p>Material de construcción garantizado</p>
+      </div>
+
+      <!-- SWITCH DESLIZANTE MODO OSCURO EN LA ESQUINA SUPERIOR DERECHA -->
+      <div class="contenedor-tema-switch" title="Cambiar tema (Claro / Oscuro)">
+        <span class="tema-icon-label" aria-hidden="true"></span>
+        <button type="button" id="tema-toggle" class="switch-tema" role="switch" aria-checked="false"
+          aria-label="Cambiar entre modo claro y oscuro">
+          <span class="switch-thumb">☀️</span>
+        </button>
+        <span class="tema-icon-label" aria-hidden="true"></span>
+      </div>
     </div>
+
     <nav>
       <ul>
-        <li><a href="#Catalogo">Catálogo</a></li>
-        <li><a href="#Horarios">Horarios</a></li>
-        <li><a href="#Ubicacion">Ubicación</a></li>
-        
-        <!-- BOTONES NUEVOS -->
-        <li><button id="tema-toggle" class="btn-nav">🌙 Modo Oscuro</button></li>
-        <li><button id="cargar-remoto" class="btn-nav">🔄 Cargar Productos Remotos</button></li>
+        <li><a href="#Catalogo" class="btn-nav">📋 Catálogo</a></li>
+        <li><a href="#Tablero" class="btn-nav">📊 Tablero</a></li>
+        <li><a href="#Horarios" class="btn-nav">🕒 Horarios</a></li>
+        <li><a href="#Ubicacion" class="btn-nav">📍 Ubicación</a></li>
+        <li><button type="button" id="cargar-remoto" class="btn-nav">🔄 Productos Remotos</button></li>
         <li class="carrito-indicador">
-          <a href="#resumen-carrito">Carrito (<span id="total-carrito">0</span>)</a>
+          <a href="#resumen-carrito" class="btn-nav">🛒 Carrito <span id="total-carrito">0</span></a>
         </li>
       </ul>
     </nav>
@@ -61,9 +72,10 @@
 
       <div id="lista-productos"></div>
     </section>
+  
 
     <!-- ── RESUMEN DEL CARRITO ───────────────────────────────────────── -->
-    <section id="resumen-carrito" style="display: none;">
+    <section id="resumen-carrito" style="display: none;" aria-label="Resumen de tu pedido">
       <h2>Resumen de tu Pedido</h2>
       <div id="lista-items-carrito" class="contenedor-items"></div>
 
@@ -148,34 +160,183 @@
       </div>
     </section>
 
-    <!-- ── HORARIOS ──────────────────────────────────────────────────── -->
-    <section id="Horarios">
-      <h2>Horarios de atención: 7:00 - 18:00 todos los días</h2>
+    <!-- ── TABLERO DE CARGA Y PEDIDO CON CAMIÓN ──────────────────────── -->
+    <section id="Tablero" class="seccion-tablero">
+      <h2>Tablero de Carga y Pedido Rápido</h2>
+      <p class="tablero-subtitulo">
+        Arma tu pedido agregando materiales con el botón <strong>(+)</strong> en Stock o arrastrándolos directamente a
+        tu Pedido.
+        Observa cómo tu <strong>camión de despacho</strong> se va llenando en tiempo real y presiona <strong>Confirmar
+          Pedido</strong> para continuar con tus datos.
+      </p>
+
+      <div id="tablero" class="contenedor-tablero tablero-dos-columnas">
+        <!-- Columna 1: Stock de Almacén -->
+        <div class="columna columna-stock" data-columna="stock">
+          <div class="columna-header">
+            <h3>📦 Materiales en Stock (Almacén)</h3>
+            <span class="total">0 materiales · 0 unidades</span>
+          </div>
+          <ul class="lista-columna"></ul>
+        </div>
+
+        <!-- Columna 2: Pedido / Carga -->
+        <div class="columna columna-pedido" data-columna="pedido">
+          <div class="columna-header">
+            <h3>📋 Mi Pedido (Carga para Despacho)</h3>
+            <span class="total">0 materiales · 0 unidades</span>
+          </div>
+          <ul class="lista-columna"></ul>
+
+          <!-- Botón para transferir y continuar al formulario -->
+          <button type="button" id="btn-pedir-tablero" class="btn-pedido btn-tablero-pedido">
+            🚚 Confirmar este Pedido y Continuar con mis Datos →
+          </button>
+        </div>
+      </div>
+
+      <div class="grafico-contenedor">
+        <h3>🚚 Nivel de Carga del Camión de Despacho KateRey</h3>
+        <canvas id="grafico" width="550" height="260">
+          Visualización en tiempo real del camión volqueta KateRey llenándose según las unidades de tu pedido.
+        </canvas>
+      </div>
     </section>
 
-    <!-- ── UBICACIÓN (CON BOTÓN DE GEOLOCALIZACIÓN) ──────────────────── -->
-    <section id="Ubicacion">
-      <h2>¿Dónde estamos?</h2>
-      <address>
-        Av. Principal s/n<br>
-        Teléfono: 69389264
-      </address>
-      <button id="ubicarme" class="btn-pedido" style="max-width: 250px;">UBICARME</button>
-      <p id="estado-ubicacion"></p>
+    <!-- ── HORARIOS ──────────────────────────────────────────────────── -->
+    <section id="Horarios" class="seccion-destacada seccion-horarios">
+      <div class="horarios-card">
+        <div class="horarios-icono" aria-hidden="true">🕒</div>
+        <div class="horarios-info">
+          <h2>Horarios de Atención y Despacho Continuo</h2>
+          <div class="horarios-destacado">
+            <span class="badge-abierto">● Abierto Lunes a Domingo</span>
+            <span class="horario-texto-principal">7:00 a 18:00 (Horario continuo)</span>
+          </div>
+          <div class="horarios-grid">
+            <div class="horario-col">
+              <strong>🏭 Despacho en Almacén:</strong>
+              <p>Carga inmediata de volquetas y camiones desde las 7:00 AM.</p>
+            </div>
+            <div class="horario-col">
+              <strong>🚚 Fletes y Entrega en Obra:</strong>
+              <p>Entregas programadas en toda la ciudad sin retrasar tu vaciado.</p>
+            </div>
+            <div class="horario-col">
+              <strong>💬 Cotizaciones WhatsApp:</strong>
+              <p>Recepción de consultas y pedidos digitales 24/7.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── UBICACIÓN (CON IMAGEN Y GEOLOCALIZACIÓN) ──────────────────── -->
+    <section id="Ubicacion" class="seccion-destacada seccion-ubicacion">
+      <div class="ubicacion-layout">
+        <div class="ubicacion-datos">
+          <span class="etiqueta-seccion">📍 Centro de Distribución y Operaciones</span>
+          <h2>¿Dónde estamos ubicados?</h2>
+          <p class="ubicacion-subtitulo">
+            Visita nuestro almacén central para retiro directo de material o solicita despacho con transporte pesado
+            hasta tu obra.
+          </p>
+
+          <div class="tarjetas-contacto-ubicacion">
+            <div class="item-contacto">
+              <span class="icono-contacto">🏢</span>
+              <div>
+                <strong>Dirección Almacén Central:</strong>
+                <address>Av. Principal s/n, Zona Industrial KateRey, La Paz - Bolivia</address>
+              </div>
+            </div>
+
+            <div class="item-contacto">
+              <span class="icono-contacto">📞</span>
+              <div>
+                <strong>Teléfono y WhatsApp directo:</strong>
+                <span>+591 69389264 (Confirmación inmediata)</span>
+              </div>
+            </div>
+
+            <div class="item-contacto">
+              <span class="icono-contacto">🚚</span>
+              <div>
+                <strong>Capacidad Logística:</strong>
+                <span>Volquetas de 6m³, camiones de alto tonelaje y estibadores para descarga rápida.</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="bloque-calculo-distancia">
+            <button id="ubicarme" class="btn-pedido btn-ubicarme" type="button">
+              📍 Calcular mi distancia a KateRey
+            </button>
+            <p id="estado-ubicacion" class="estado-ubicacion" aria-live="polite"></p>
+          </div>
+        </div>
+
+        <div class="ubicacion-visual">
+          <div class="marco-imagen-ubicacion">
+            <img src="ubicacion.jpg" alt="Mapa y centro de distribución de materiales de construcción KateRey"
+              class="img-ubicacion" loading="lazy">
+            <div class="badge-mapa-flotante">
+              <span>📍 Almacén KateRey · La Paz</span>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
   </main>
 
-  <!-- ── ASIDE Y FOOTER ────────────────────────────────────────────── -->
-  <aside>
-    <article>
-      <h3>¿Sabías?</h3>
-      <p>Trabajamos directo con fábrica para garantizar precio justo.</p>
-    </article>
+  <!-- ── ASIDE: ¿SABÍAS QUE? CON IMAGEN ────────────────────────────── -->
+  <aside class="seccion-sabias">
+    <div class="sabias-card">
+      <div class="sabias-imagen-col">
+        <img src="sabias-fabrica.jpg" alt="Trabajo directo con fábrica de materiales de construcción" class="img-sabias"
+          loading="lazy">
+        <div class="badge-garantia">
+          <span>🏅 100% Garantizado de Fábrica</span>
+        </div>
+      </div>
+      <div class="sabias-contenido-col">
+        <span class="etiqueta-seccion">💡 Calidad & Ahorro para tu Construcción</span>
+        <h3>¿Sabías qué? Trabajamos directo con fábrica</h3>
+        <p>
+          En <strong>Distribuidor KateRey</strong> eliminamos los sobreprecios de intermediarios. Todos nuestros lotes
+          de cemento, acero corrugado, áridos y bloques llegan directamente desde las plantas de producción para
+          garantizarte <strong>el precio más justo</strong> y materiales frescos listos para la obra.
+        </p>
+        <ul class="lista-ventajas-fabrica">
+          <li>✔ <strong>Cemento fresco recién embolsado:</strong> Sin bolsas compactadas ni humedad.</li>
+          <li>✔ <strong>Acero corrugado certificado:</strong> Conforme a norma técnica estructural y peso reglamentario.
+          </li>
+          <li>✔ <strong>Pesaje y cubicaje transparente:</strong> Recibes exactamente los metros cúbicos y unidades
+            acordadas.</li>
+        </ul>
+      </div>
+    </div>
   </aside>
 
   <footer>
-    <p>&copy; 2026 Distribuidor KateRey</p>
+    <div class="footer-contenido">
+      <div class="footer-col">
+        <h4>Distribuidor KateRey</h4>
+        <p>Material de construcción garantizado para empresas constructoras, maestros de obra y particulares.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Atención y Contacto</h4>
+        <p>📞 Tel: 69389264<br>📍 Av. Principal s/n, La Paz - Bolivia<br>🕒 Horario: 7:00 - 18:00 (Continuo)</p>
+      </div>
+      <div class="footer-col">
+        <h4>Seguridad y Respaldo</h4>
+        <p>Generación instantánea de Recibo Oficial en PDF y confirmación directa por WhatsApp.</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Distribuidor KateRey · Desarrollado por Jhamil Najum Chino Huarachi</p>
+    </div>
   </footer>
 
   <!-- ── SCRIPTS (ORDEN CORRECTO) ────────────────────────────────────── -->
@@ -194,6 +355,7 @@
   <script src="validaciones.js"></script>
   <script src="preferencias.js"></script>
   <script src="remoto.js"></script>
+  <script src="tablero.js"></script>
 
   <!-- 4. Lógica principal -->
   <script src="app.js"></script>

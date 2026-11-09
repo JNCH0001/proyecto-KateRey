@@ -18,11 +18,14 @@ $(document).ready(function () {
 
   // ── 2. EFECTO HOVER EN LAS TARJETAS DE PRODUCTO ─────────────────────────
   // Delegación de eventos: funciona aunque las tarjetas se creen dinámicamente
-  $("#lista-productos").on("mouseenter", ".tarjeta", function () {
-    $(this).stop(true, true).animate({ marginTop: "-4px" }, 150);
-  }).on("mouseleave", ".tarjeta", function () {
-    $(this).stop(true, true).animate({ marginTop: "0px" }, 150);
-  });
+  // Solo en dispositivos con mouse real (evita que en móvil la tarjeta se quede trabada al tocar)
+  if (window.matchMedia && window.matchMedia("(hover: hover)").matches) {
+    $("#lista-productos").on("mouseenter", ".tarjeta", function () {
+      $(this).stop(true, true).animate({ marginTop: "-4px" }, 150);
+    }).on("mouseleave", ".tarjeta", function () {
+      $(this).stop(true, true).animate({ marginTop: "0px" }, 150);
+    });
+  }
 
   // ── 3. SCROLL SUAVE AL HACER CLIC EN EL CARRITO ─────────────────────────
   $(".carrito-indicador a").on("click", function (e) {

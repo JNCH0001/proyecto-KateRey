@@ -37,25 +37,82 @@ function vaciarCarrito() {
 function generarHTMLCarrito() {
   const lista = document.getElementById('lista-items-carrito');
   if (!lista) return;
-  lista.innerHTML = '';
-  Object.values(carrito).forEach(item => {
-    const div = document.createElement('div');
-    div.className = 'item-carrito';
-    div.innerHTML = `
-      <img src="${item.img}" alt="${item.nombre}">
-      <div class="detalle-item">
-        <h4>${item.nombre}</h4>
-        <p>Bs ${item.precio.toFixed(2)} x ${item.cantidad} = <strong>Bs ${(item.precio * item.cantidad).toFixed(2)}</strong></p>
-        <div class="controles-cantidad">
-          <button onclick="cambiarCantidadYActualizar('${item.id}', -1)">-</button>
-          <span>${item.cantidad}</span>
-          <button onclick="cambiarCantidadYActualizar('${item.id}', 1)">+</button>
+  
+  const items = Object.values(carrito);
+
+  if (items.length === 0) {
+    lista.innerHTML = '<p style="text-align:center; color:var(--color-suave); padding: 1rem;">Tu carrito está vacío.</p>';
+    return;
+  }
+
+  const { total, count } = obtenerTotalCarrito();
+
+  // Generar filas de la tabla
+  const filas = items.map(item => `
+    <tr>
+      <td>
+        <div class="producto-celda">
+          <img src="${item.img || 'default.jpg'}" alt="${item.nombre}" class="img-tabla">
+          <span>${item.nombre}</span>
         </div>
-      </div>
-    `;
-    lista.appendChild(div);
-  });
+      </td>
+      <td>Bs ${item.precio.toFixed(2)}</td>
+      <td>
+        <div class="controles-tabla">
+          <button type="button" onclick="cambiarCantidadYActualizar('${item.id}', -1)">-</button>
+          <span>${item.cantidad}</span>
+          <button type="button" onclick="cambiarCantidadYActualizar('${item.id}', 1)">+</button>
+        </div>
+      </td>
+      <td class="subtotal-tabla">Bs ${(item.precio * item.cantidad).toFixed(2)}</td>
+      <td>
+        <button type="button" class="btn-quitar" onclick="quitarProductoDelCarrito('${item.id}')" title="Quitar este producto">🗑️</button>
+      </td>
+    </tr>
+  `).join("");
+
+  // Armar la tabla completa con su resumen final (tfoot)
+  lista.innerHTML = `
+    <div class="tabla-carrito-wrapper">
+      <table class="tabla-carrito">
+        <thead>
+          <tr>
+            <th>Producto</th>
+            <th>Precio</th>
+            <th>Cantidad</th>
+            <th>Subtotal</th>
+            <th>Acción</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${filas}
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="4" class="resumen-texto">Productos distintos:</td>
+            <td colspan="1" class="resumen-valor">${items.length}</td>
+          </tr>
+          <tr>
+            <td colspan="4" class="resumen-texto">Total de unidades:</td>
+            <td colspan="1" class="resumen-valor">${count}</td>
+          </tr>
+          <tr class="fila-total">
+            <td colspan="4" class="resumen-texto-total">TOTAL A PAGAR:</td>
+            <td colspan="1" class="resumen-valor-total">Bs ${total.toFixed(2)}</td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  `;
 }
+
+// Eliminar un producto de golpe
+window.quitarProductoDelCarrito = function(id) {
+  if (carrito[id]) {
+    delete carrito[id];
+    actualizarUICarrito();
+  }
+};
 
 // Arma el mensaje de WhatsApp con formato de recibo formal
 function construirMensajePedido(datosCliente, codigo) {
